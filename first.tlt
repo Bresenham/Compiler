@@ -1,0 +1,7 @@
+Color Red;
+Forward;
+Color Black;
+Forward;
+Turn Right;
+Color Blue;
+Forward;
