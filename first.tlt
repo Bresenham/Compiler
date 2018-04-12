@@ -1,7 +1,6 @@
-Color Red;
-Forward;
-Color Black;
-Forward;
-Turn Right;
-Color Blue;
-Forward;
+Color rgb(255,0,255);
+Turn Right 45;
+Forward 250;
+Color rgb(15,25,90);
+Turn Left 25;
+Forward 125;
