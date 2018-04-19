@@ -86,7 +86,10 @@ int yyerror(char *msg);
 # define YYERROR_VERBOSE 0
 #endif
 
-
+/* In a future release of Bison, this section will be replaced
+   by #include "turtle.tab.h".  */
+#ifndef YY_YY_TURTLE_TAB_H_INCLUDED
+# define YY_YY_TURTLE_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -100,22 +103,22 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    FORWARD = 1,
-    TURN = 2,
-    RIGHT = 3,
-    LEFT = 4,
-    COLOR = 5,
-    RED = 6,
-    GREEN = 7,
-    BLUE = 8,
-    BLACK = 9,
-    INTEGER = 10,
-    RGB = 11,
-    OPENPR = 12,
-    CLOSEDPR = 13,
-    COMMA = 14,
-    SIZE = 15,
-    SEMICOLON = 25
+    FORWARD = 258,
+    TURN = 259,
+    RIGHT = 260,
+    LEFT = 261,
+    COLOR = 262,
+    RED = 263,
+    GREEN = 264,
+    BLUE = 265,
+    BLACK = 266,
+    INTEGER = 267,
+    RGB = 268,
+    OPENPR = 269,
+    CLOSEDPR = 270,
+    COMMA = 271,
+    SIZE = 272,
+    SEMICOLON = 273
   };
 #endif
 
@@ -131,11 +134,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-
+#endif /* !YY_YY_TURTLE_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 139 "turtle.tab.c" /* yacc.c:358  */
+#line 142 "turtle.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -391,7 +394,7 @@ union yyalloc
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   257
+#define YYMAXUTOK   273
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -400,9 +403,7 @@ union yyalloc
    as returned by yylex, without out-of-bounds checking.  */
 static const yytype_uint8 yytranslate[] =
 {
-       0,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    14,    15,    16,    17,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,    18,     2,     2,     2,     2,
+       0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -425,7 +426,11 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18
 };
 
 #if YYDEBUG
@@ -454,8 +459,8 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,     1,     2,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    14,    15,    25
+       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
+     265,   266,   267,   268,   269,   270,   271,   272,   273
 };
 # endif
 
@@ -1221,19 +1226,19 @@ yyreduce:
         case 3:
 #line 29 "turtle.y" /* yacc.c:1646  */
     {printf("%%!PS\n\n");}
-#line 1225 "turtle.tab.c" /* yacc.c:1646  */
+#line 1230 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
 #line 35 "turtle.y" /* yacc.c:1646  */
     {printf("newpath 0 0 moveto 0 100 lineto currentpoint translate stroke\n");}
-#line 1231 "turtle.tab.c" /* yacc.c:1646  */
+#line 1236 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
 #line 36 "turtle.y" /* yacc.c:1646  */
     {printf("newpath 0 0 moveto 0 %d lineto currentpoint translate stroke\n", (yyvsp[-1]));}
-#line 1237 "turtle.tab.c" /* yacc.c:1646  */
+#line 1242 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
@@ -1241,65 +1246,65 @@ yyreduce:
     {
 	printf("%f %f %f setrgbcolor\n",(yyvsp[-6]) / 255.0,(yyvsp[-4]) / 255.0,(yyvsp[-2]) / 255.0);
 }
-#line 1245 "turtle.tab.c" /* yacc.c:1646  */
+#line 1250 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 43 "turtle.y" /* yacc.c:1646  */
     {printf("90 rotate\n");}
-#line 1251 "turtle.tab.c" /* yacc.c:1646  */
+#line 1256 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
 #line 44 "turtle.y" /* yacc.c:1646  */
     {printf("270 rotate\n");}
-#line 1257 "turtle.tab.c" /* yacc.c:1646  */
+#line 1262 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 45 "turtle.y" /* yacc.c:1646  */
     {printf("%d rotate\n", 90 + (yyvsp[-1]));}
-#line 1263 "turtle.tab.c" /* yacc.c:1646  */
+#line 1268 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 46 "turtle.y" /* yacc.c:1646  */
     {printf("%d rotate\n", 270 + (yyvsp[-1]));}
-#line 1269 "turtle.tab.c" /* yacc.c:1646  */
+#line 1274 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 48 "turtle.y" /* yacc.c:1646  */
     {printf("%d setlinewidth\n",(yyvsp[-1]));}
-#line 1275 "turtle.tab.c" /* yacc.c:1646  */
+#line 1280 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 50 "turtle.y" /* yacc.c:1646  */
     {printf("1 0 0 setrgbcolor\n");}
-#line 1281 "turtle.tab.c" /* yacc.c:1646  */
+#line 1286 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 51 "turtle.y" /* yacc.c:1646  */
     {printf("0 1 0 setrgbcolor\n");}
-#line 1287 "turtle.tab.c" /* yacc.c:1646  */
+#line 1292 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 52 "turtle.y" /* yacc.c:1646  */
     {printf("0 0 1 setrgbcolor\n");}
-#line 1293 "turtle.tab.c" /* yacc.c:1646  */
+#line 1298 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 53 "turtle.y" /* yacc.c:1646  */
     {printf("0 0 0 setrgbcolor\n");}
-#line 1299 "turtle.tab.c" /* yacc.c:1646  */
+#line 1304 "turtle.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1303 "turtle.tab.c" /* yacc.c:1646  */
+#line 1308 "turtle.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -4,25 +4,25 @@ extern int yylex(void);
 int yyerror(char *msg);
 %}
 
-%token	FORWARD		1
-%token	TURN		2
-%token	RIGHT		3
-%token	LEFT		4
-%token	COLOR		5
-%token	RED		6
-%token	GREEN		7
-%token	BLUE		8
-%token	BLACK		9
-%token	INTEGER		10
+%token	FORWARD		
+%token	TURN		
+%token	RIGHT		
+%token	LEFT		
+%token	COLOR		
+%token	RED		
+%token	GREEN		
+%token	BLUE		
+%token	BLACK		
+%token	INTEGER		
 
-%token	RGB		11
-%token	OPENPR		12
-%token	CLOSEDPR	13
-%token	COMMA		14
+%token	RGB		
+%token	OPENPR		
+%token	CLOSEDPR
+%token	COMMA
 
-%token	SIZE		15
+%token	SIZE
 
-%token	SEMICOLON	25
+%token	SEMICOLON
 
 %%
 program: header commandList trailer;

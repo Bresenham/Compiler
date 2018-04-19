@@ -45,22 +45,22 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    FORWARD = 1,
-    TURN = 2,
-    RIGHT = 3,
-    LEFT = 4,
-    COLOR = 5,
-    RED = 6,
-    GREEN = 7,
-    BLUE = 8,
-    BLACK = 9,
-    INTEGER = 10,
-    RGB = 11,
-    OPENPR = 12,
-    CLOSEDPR = 13,
-    COMMA = 14,
-    SIZE = 15,
-    SEMICOLON = 25
+    FORWARD = 258,
+    TURN = 259,
+    RIGHT = 260,
+    LEFT = 261,
+    COLOR = 262,
+    RED = 263,
+    GREEN = 264,
+    BLUE = 265,
+    BLACK = 266,
+    INTEGER = 267,
+    RGB = 268,
+    OPENPR = 269,
+    CLOSEDPR = 270,
+    COMMA = 271,
+    SIZE = 272,
+    SEMICOLON = 273
   };
 #endif
 
