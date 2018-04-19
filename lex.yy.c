@@ -507,7 +507,7 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "turtle.l"
 #line 2 "turtle.l"
-extern int yylval;
+#include "turtle.tab.h"
 #line 512 "lex.yy.c"
 
 #define INITIAL 0
@@ -788,82 +788,82 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 6 "turtle.l"
-return 1;
+return FORWARD;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 7 "turtle.l"
-return 2;
+return TURN;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 8 "turtle.l"
-return 3;
+return RIGHT;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 9 "turtle.l"
-return 4;
+return LEFT;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 10 "turtle.l"
-return 5;
+return COLOR;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 11 "turtle.l"
-return 6;
+return RED;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 12 "turtle.l"
-return 7;
+return GREEN;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 13 "turtle.l"
-return 8;
+return BLUE;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 14 "turtle.l"
-return 9;
+return BLACK;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 16 "turtle.l"
-yylval=atoi(yytext);return 10;
+yylval=atoi(yytext);return INTEGER;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 17 "turtle.l"
-return 11;
+return RGB;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 18 "turtle.l"
-return 12;
+return OPENPR;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 19 "turtle.l"
-return 13;
+return CLOSEDPR;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 20 "turtle.l"
-return 14;
+return COMMA;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 22 "turtle.l"
-return 15;
+return SIZE;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 24 "turtle.l"
-return 25;
+return SEMICOLON;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP

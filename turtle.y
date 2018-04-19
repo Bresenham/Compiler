@@ -20,7 +20,7 @@ int yyerror(char *msg);
 %token	CLOSEDPR	13
 %token	COMMA		14
 
-%token	SIZE		15;
+%token	SIZE		15
 
 %token	SEMICOLON	25
 
