@@ -1,11 +1,6 @@
 Color rgb(255,0,255);
 Turn Right 45;
-Forward 250;
-Color rgb(15,25,90);
-Size 25;
-Curve 15,50,105;
 Size 1;
-// Forward 100+3*10;
-Forward 4+1*15;
-Color rgb(255,0,0);
-Forward (4+1)*15;
+Forward -100+3*100/2-2;
+Color rgb(0,0,0);
+Forward 48;

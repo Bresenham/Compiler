@@ -6,7 +6,7 @@ int yyerror(char *msg);
 
 %token	FORWARD TURN RIGHT LEFT COLOR RED GREEN BLUE BLACK RGB
 
-%token	PLUS STAR OPENPR CLOSEDPR
+%token	PLUS MINUS STAR SLASH OPENPR CLOSEDPR
 
 %token	INTEGER		
 
@@ -42,11 +42,15 @@ command: SIZE INTEGER SEMICOLON{printf("%d setlinewidth\n",$2);};
 
 expr: prod;
 expr: expr PLUS prod {printf("add ");};
+expr: expr MINUS prod {printf("sub ");};
 
 prod: factor;
 prod: prod STAR factor {printf("mul ");};
+prod: prod SLASH factor {printf("div ");};
 
 factor: INTEGER {printf("%d ", $1);};
+factor: PLUS INTEGER {printf("%d ", $2);};
+factor: MINUS INTEGER {printf("-%d ", $2);};
 factor: OPENPR expr CLOSEDPR;
 
 col: RED{printf("1 0 0 setrgbcolor\n");};

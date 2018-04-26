@@ -15,6 +15,8 @@ Black			return BLACK;
 
 \+			return PLUS;
 \*			return STAR;
+-			return MINUS;
+\/			return SLASH;
 
 Curve			return CURVE;
 
