@@ -1,6 +1,6 @@
 Color rgb(255,0,255);
 Turn Right 45;
 Size 1;
-Forward -100+3*100/2-2;
+Forward -(-100)+3*100/2-2;
 Color rgb(0,0,0);
-Forward 48;
+Forward 248;

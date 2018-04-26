@@ -48,10 +48,12 @@ prod: factor;
 prod: prod STAR factor {printf("mul ");};
 prod: prod SLASH factor {printf("div ");};
 
-factor: INTEGER {printf("%d ", $1);};
-factor: PLUS INTEGER {printf("%d ", $2);};
-factor: MINUS INTEGER {printf("-%d ", $2);};
-factor: OPENPR expr CLOSEDPR;
+factor: atomic;
+factor: PLUS atomic;
+factor: MINUS atomic {printf("neg ");};
+
+atomic: INTEGER {printf("%d ", $1);};
+atomic: OPENPR expr CLOSEDPR;
 
 col: RED{printf("1 0 0 setrgbcolor\n");};
 col: GREEN{printf("0 1 0 setrgbcolor\n");};
