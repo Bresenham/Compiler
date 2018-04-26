@@ -54,13 +54,16 @@ extern int yydebug;
     GREEN = 264,
     BLUE = 265,
     BLACK = 266,
-    INTEGER = 267,
-    RGB = 268,
-    OPENPR = 269,
-    CLOSEDPR = 270,
-    COMMA = 271,
-    SIZE = 272,
-    SEMICOLON = 273
+    RGB = 267,
+    PLUS = 268,
+    STAR = 269,
+    OPENPR = 270,
+    CLOSEDPR = 271,
+    INTEGER = 272,
+    CURVE = 273,
+    SIZE = 274,
+    COMMA = 275,
+    SEMICOLON = 276
   };
 #endif
 

@@ -13,6 +13,11 @@ Green			return GREEN;
 Blue			return BLUE;
 Black			return BLACK;
 
+\+			return PLUS;
+\*			return STAR;
+
+Curve			return CURVE;
+
 [0-9]+			yylval=atoi(yytext);return INTEGER;
 rgb			return RGB;
 \(			return OPENPR;
