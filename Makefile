@@ -6,8 +6,8 @@ lex.yy.c: turtle.l
 turtle.tab.c turtle.tab.h: turtle.y
 	bison -d turtle.y
 
-turtle: lex.yy.c turtle.tab.c turtle.tab.h
-	gcc lex.yy.c turtle.tab.c -lfl -o turtle
+turtle: lex.yy.c turtle.tab.c turtle.tab.h symtab.h symtab.c
+	gcc lex.yy.c turtle.tab.c symtab.c -lfl -o turtle
 
 first.ps: first.tlt turtle
 	./turtle < first.tlt > first.ps

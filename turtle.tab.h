@@ -55,23 +55,35 @@ extern int yydebug;
     BLUE = 265,
     BLACK = 266,
     RGB = 267,
-    PLUS = 268,
-    MINUS = 269,
-    STAR = 270,
-    SLASH = 271,
-    OPENPR = 272,
-    CLOSEDPR = 273,
-    INTEGER = 274,
-    CURVE = 275,
-    SIZE = 276,
-    COMMA = 277,
-    SEMICOLON = 278
+    VAR = 268,
+    PLUS = 269,
+    MINUS = 270,
+    STAR = 271,
+    SLASH = 272,
+    OPENPR = 273,
+    CLOSEDPR = 274,
+    INTEGER = 275,
+    ID = 276,
+    CURVE = 277,
+    SIZE = 278,
+    COMMA = 279,
+    SEMICOLON = 280,
+    ASSIGN = 281
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 20 "turtle.y" /* yacc.c:1909  */
+int i; node *n;
+
+#line 84 "turtle.tab.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

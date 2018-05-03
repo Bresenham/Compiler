@@ -1,27 +1,40 @@
 %{
 #include <stdio.h>
+#include "symtab.h"
 extern int yylex(void);
 int yyerror(char *msg);
 %}
 
-%token	FORWARD TURN RIGHT LEFT COLOR RED GREEN BLUE BLACK RGB
+%token	FORWARD TURN RIGHT LEFT COLOR RED GREEN BLUE BLACK RGB VAR
 
 %token	PLUS MINUS STAR SLASH OPENPR CLOSEDPR
 
-%token	INTEGER		
+%token	<i> INTEGER
+
+%token	<n> ID
 
 %token	CURVE SIZE
 
-%token	COMMA SEMICOLON
+%token	COMMA SEMICOLON ASSIGN
 
+%union {int i; node *n;}
+
+//%define parse.error verbose
 
 %%
-program: header commandList trailer;
+program: header declist commandList trailer;
 header: {printf("%%!PS\n\n");};
 trailer: ;
 
+declist: ;
+declist: declist dec;
+
+dec: VAR ID SEMICOLON {$2->defined = 1;};
+
 commandList: ;
 commandList: commandList command;
+
+command: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch def\n", $1->name);};
 
 command: FORWARD SEMICOLON {printf("newpath 0 0 moveto 0 100 lineto currentpoint translate stroke\n");};
 command: FORWARD expr SEMICOLON {printf("newpath 0 0 moveto 0 exch lineto currentpoint translate stroke\n");};
@@ -52,6 +65,7 @@ factor: atomic;
 factor: PLUS atomic;
 factor: MINUS atomic {printf("neg ");};
 
+atomic: ID {if($1->defined) printf("tlt%s ", $1->name);};
 atomic: INTEGER {printf("%d ", $1);};
 atomic: OPENPR expr CLOSEDPR;
 
