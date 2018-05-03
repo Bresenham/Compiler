@@ -1,8 +1,3 @@
-Variable forward;
-forward = 500;
-Color rgb(255,0,255);
-Turn Right 45;
-Size 1;
-Forward forward+3*100/2-2;
 Color rgb(0,0,0);
-Forward 248;
+Turn Right 75;
+Forward 100;

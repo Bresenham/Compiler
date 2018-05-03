@@ -46,8 +46,8 @@ command: COLOR RGB OPENPR INTEGER COMMA INTEGER COMMA INTEGER CLOSEDPR SEMICOLON
 
 command: TURN LEFT SEMICOLON {printf("90 rotate\n");};
 command: TURN RIGHT SEMICOLON{printf("270 rotate\n");};
-command: TURN LEFT INTEGER SEMICOLON {printf("%d rotate\n", 90 + $3);};
-command: TURN RIGHT INTEGER SEMICOLON{printf("%d rotate\n", 270 + $3);};
+command: TURN LEFT expr SEMICOLON {printf("rotate\n");};
+command: TURN RIGHT expr SEMICOLON {printf("-1 mul rotate\n");};
 
 command: CURVE INTEGER COMMA INTEGER COMMA INTEGER SEMICOLON {printf("newpath 0 0 %d %d %d arc currentpoint translate stroke\n", $2, $4, $6);};
 
