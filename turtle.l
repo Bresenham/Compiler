@@ -30,6 +30,7 @@ Variable		return VAR;
 Curve			return CURVE;
 
 [0-9]+			yylval.i=atoi(yytext);return INTEGER;
+[1-9][0-9]*\.[0-9]+	yylval.d = atof(yytext); return DOUBLE;
 \(			return OPENPR;
 \)			return CLOSEDPR;
 ,			return COMMA;

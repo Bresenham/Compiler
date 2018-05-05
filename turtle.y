@@ -9,7 +9,7 @@ int yyerror(char *msg);
 
 %token	PLUS MINUS STAR SLASH OPENPR CLOSEDPR
 
-%token	<i> INTEGER
+%token	<i> INTEGER <d> DOUBLE
 
 %token	<n> ID
 
@@ -17,7 +17,7 @@ int yyerror(char *msg);
 
 %token	COMMA SEMICOLON ASSIGN
 
-%union {int i; node *n;}
+%union {int i; node *n; double d;}
 
 //%define parse.error verbose
 
@@ -72,6 +72,7 @@ factor: MINUS atomic {printf("neg ");};
 
 atomic: ID {if($1->defined) printf("tlt%s ", $1->name);};
 atomic: INTEGER {printf("%d ", $1);};
+atomic: DOUBLE {printf("%f ", $1);};
 atomic: OPENPR expr CLOSEDPR;
 
 col: RED{printf("1 0 0 setrgbcolor\n");};

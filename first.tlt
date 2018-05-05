@@ -1,3 +1,6 @@
-Color rgb(100+28,64-5,32-32);
+Variable test;
+test = 1.2;
 Turn Right 75;
-Forward 100;
+Forward test*20+10;
+Color rgb(255,0,0);
+Forward 34;
