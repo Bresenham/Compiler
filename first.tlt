@@ -1,4 +1,6 @@
 Variable test;
+Variable x;
+x = 1;
 test = 1.2;
 Turn Right 75;
 Forward test*20+10;
@@ -7,4 +9,16 @@ Size 30.5;
 Forward 34;
 Color rgb(0,255,0);
 Size 1.0;
-Curve 45,0,360;
+Curve 45,180,90;
+Size 5.0;
+Color rgb(0,0,255);
+If !(5 == 4) AND 3 == 3 OR 5 != 2 Then
+   Forward 0.5*100;
+// Else
+//   Turn Left;
+// While x > 0 Do
+// Begin
+//   Forward x;
+//   Turn Right;
+//   x = x - 1;
+// End

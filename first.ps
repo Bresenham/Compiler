@@ -1,5 +1,6 @@
 %!PS
 
+1 /tltx exch def
 1.200000 /tlttest exch def
 75 -1 mul rotate
 tlttest 20 mul 10 add newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
@@ -9,4 +10,9 @@ tlttest 20 mul 10 add newpath 0 0 moveto 0 exch lineto currentpoint translate st
 0 255 div 255 255 div 0 255 div setrgbcolor
 1.000000 setlinewidth
 0 0
-45 0 360 newpath arc currentpoint translate stroke
+45 180 90 newpath arc currentpoint translate stroke
+5.000000 setlinewidth
+0 255 div 0 255 div 255 255 div setrgbcolor
+5 4 eq not 3 3 eq and 5 2 ne or {
+0.500000 100 mul newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+} if

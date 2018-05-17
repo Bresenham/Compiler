@@ -7,7 +7,7 @@ int yyerror(char *msg);
 
 %token	FORWARD TURN RIGHT LEFT COLOR RED GREEN BLUE BLACK RGB VAR
 
-%token	PLUS MINUS STAR SLASH OPENPR CLOSEDPR
+%token	PLUS MINUS STAR SLASH OPENPR CLOSEDPR IF THEN AND OR
 
 %token	<i> INTEGER <d> DOUBLE
 
@@ -16,6 +16,8 @@ int yyerror(char *msg);
 %token	CURVE SIZE
 
 %token	COMMA SEMICOLON ASSIGN
+
+%token	LESS GREATER NOT
 
 %union {int i; node *n; double d;}
 
@@ -36,6 +38,11 @@ commandList: commandList command;
 
 command: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch def\n", $1->name);};
 
+ifhead: IF bool THEN {printf("{\n");};
+command: ifhead command {printf("} if\n");};
+
+//command: START commandList END;
+
 command: FORWARD SEMICOLON {printf("newpath 0 0 moveto 0 100 lineto currentpoint translate stroke\n");};
 command: FORWARD expr SEMICOLON {printf("newpath 0 0 moveto 0 exch lineto currentpoint translate stroke\n");};
 
@@ -53,6 +60,21 @@ command: TURN RIGHT expr SEMICOLON {printf("-1 mul rotate\n");};
 command: {printf("0 0\n");} CURVE expr COMMA expr COMMA expr SEMICOLON {printf("newpath arc currentpoint translate stroke\n");};
 
 command: SIZE expr SEMICOLON {printf("setlinewidth\n");};
+
+bool: bool OR frel {printf("or ");};
+bool: bool AND frel {printf("and ");};
+bool: frel;
+
+frel: NOT rel {printf("not ");};
+frel: rel;
+
+rel: expr LESS expr {printf("lt ");};
+rel: expr GREATER expr {printf("gt ");};
+rel: expr LESS ASSIGN expr {printf("le ");};
+rel: expr GREATER ASSIGN expr {printf("ge ");};
+rel: expr NOT ASSIGN expr {printf("ne ");};
+rel: expr ASSIGN ASSIGN expr {printf("eq ");};
+rel: OPENPR rel CLOSEDPR;
 
 expr: prod;
 expr: expr PLUS prod {printf("add ");};

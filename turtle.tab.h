@@ -62,14 +62,21 @@ extern int yydebug;
     SLASH = 272,
     OPENPR = 273,
     CLOSEDPR = 274,
-    INTEGER = 275,
-    DOUBLE = 276,
-    ID = 277,
-    CURVE = 278,
-    SIZE = 279,
-    COMMA = 280,
-    SEMICOLON = 281,
-    ASSIGN = 282
+    IF = 275,
+    THEN = 276,
+    AND = 277,
+    OR = 278,
+    INTEGER = 279,
+    DOUBLE = 280,
+    ID = 281,
+    CURVE = 282,
+    SIZE = 283,
+    COMMA = 284,
+    SEMICOLON = 285,
+    ASSIGN = 286,
+    LESS = 287,
+    GREATER = 288,
+    NOT = 289
   };
 #endif
 
@@ -78,10 +85,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "turtle.y" /* yacc.c:1909  */
+#line 22 "turtle.y" /* yacc.c:1909  */
 int i; node *n; double d;
 
-#line 85 "turtle.tab.h" /* yacc.c:1909  */
+#line 92 "turtle.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
