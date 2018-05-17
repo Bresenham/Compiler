@@ -17,6 +17,8 @@ Black			return BLACK;
 
 Variable		return VAR;
 If			return IF;
+While			return WHILE;
+Do			return DO;
 AND			return AND;
 OR			return OR;
 Then			return THEN;

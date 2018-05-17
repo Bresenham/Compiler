@@ -12,8 +12,11 @@ Size 1.0;
 Curve 45,180,90;
 Size 5.0;
 Color rgb(0,0,255);
-If !(3 != 2) Then
+If !(3 == 2) Then
+BEGIN
+   Color rgb(0,255,0);
    Forward 0.5*100;
+END
 Else
 Begin
    Color rgb(128,0,64);
