@@ -40,11 +40,7 @@ command: FORWARD SEMICOLON {printf("newpath 0 0 moveto 0 100 lineto currentpoint
 command: FORWARD expr SEMICOLON {printf("newpath 0 0 moveto 0 exch lineto currentpoint translate stroke\n");};
 
 command: COLOR col SEMICOLON;
-/*
-command: COLOR RGB OPENPR INTEGER COMMA INTEGER COMMA INTEGER CLOSEDPR SEMICOLON{
-	printf("%f %f %f setrgbcolor\n", $4 / 255.0, $6 / 255.0, $8 / 255.0);
-};
-*/
+
 command: COLOR RGB OPENPR expr {printf("255 div ");} COMMA expr {printf("255 div ");} COMMA expr {printf("255 div ");} CLOSEDPR SEMICOLON{
 	printf("setrgbcolor\n");
 };
@@ -54,9 +50,9 @@ command: TURN RIGHT SEMICOLON{printf("270 rotate\n");};
 command: TURN LEFT expr SEMICOLON {printf("rotate\n");};
 command: TURN RIGHT expr SEMICOLON {printf("-1 mul rotate\n");};
 
-command: CURVE INTEGER COMMA INTEGER COMMA INTEGER SEMICOLON {printf("newpath 0 0 %d %d %d arc currentpoint translate stroke\n", $2, $4, $6);};
+command: {printf("0 0\n");} CURVE expr COMMA expr COMMA expr SEMICOLON {printf("newpath arc currentpoint translate stroke\n");};
 
-command: SIZE INTEGER SEMICOLON{printf("%d setlinewidth\n",$2);};
+command: SIZE expr SEMICOLON {printf("setlinewidth\n");};
 
 expr: prod;
 expr: expr PLUS prod {printf("add ");};
