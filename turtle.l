@@ -20,6 +20,7 @@ If			return IF;
 AND			return AND;
 OR			return OR;
 Then			return THEN;
+Else			return ELSE;
 
 [a-z]+			{
 				yylval.n = lookup(yytext);

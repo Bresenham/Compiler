@@ -13,6 +13,9 @@ tlttest 20 mul 10 add newpath 0 0 moveto 0 exch lineto currentpoint translate st
 45 180 90 newpath arc currentpoint translate stroke
 5.000000 setlinewidth
 0 255 div 0 255 div 255 255 div setrgbcolor
-5 4 eq not 3 3 eq and 5 2 ne or {
+3 2 ne not {
 0.500000 100 mul newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-} if
+}
+{
+0.100000 100 mul newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+} ifelse

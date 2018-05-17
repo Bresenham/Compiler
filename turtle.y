@@ -7,7 +7,7 @@ int yyerror(char *msg);
 
 %token	FORWARD TURN RIGHT LEFT COLOR RED GREEN BLUE BLACK RGB VAR
 
-%token	PLUS MINUS STAR SLASH OPENPR CLOSEDPR IF THEN AND OR
+%token	PLUS MINUS STAR SLASH OPENPR CLOSEDPR IF THEN AND OR ELSE
 
 %token	<i> INTEGER <d> DOUBLE
 
@@ -39,6 +39,7 @@ commandList: commandList command;
 command: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch def\n", $1->name);};
 
 ifhead: IF bool THEN {printf("{\n");};
+command: ifhead command {printf("}\n");} ELSE {printf("{\n");} command {printf("} ifelse\n");};
 command: ifhead command {printf("} if\n");};
 
 //command: START commandList END;
