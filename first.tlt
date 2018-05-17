@@ -15,7 +15,10 @@ Color rgb(0,0,255);
 If !(3 != 2) Then
    Forward 0.5*100;
 Else
+Begin
+   Color rgb(128,0,64);
    Forward 0.1*100;
+End
 // While x > 0 Do
 // Begin
 //   Forward x;

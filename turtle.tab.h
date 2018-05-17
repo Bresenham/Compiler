@@ -77,7 +77,9 @@ extern int yydebug;
     ASSIGN = 287,
     LESS = 288,
     GREATER = 289,
-    NOT = 290
+    NOT = 290,
+    START = 291,
+    END = 292
   };
 #endif
 
@@ -86,10 +88,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 22 "turtle.y" /* yacc.c:1909  */
+#line 24 "turtle.y" /* yacc.c:1909  */
 int i; node *n; double d;
 
-#line 93 "turtle.tab.h" /* yacc.c:1909  */
+#line 95 "turtle.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

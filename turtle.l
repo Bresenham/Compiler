@@ -21,6 +21,8 @@ AND			return AND;
 OR			return OR;
 Then			return THEN;
 Else			return ELSE;
+Begin			return START;
+End			return END;
 
 [a-z]+			{
 				yylval.n = lookup(yytext);

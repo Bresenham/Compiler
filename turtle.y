@@ -19,6 +19,8 @@ int yyerror(char *msg);
 
 %token	LESS GREATER NOT
 
+%token	START END
+
 %union {int i; node *n; double d;}
 
 //%define parse.error verbose
@@ -42,7 +44,7 @@ ifhead: IF bool THEN {printf("{\n");};
 command: ifhead command {printf("}\n");} ELSE {printf("{\n");} command {printf("} ifelse\n");};
 command: ifhead command {printf("} if\n");};
 
-//command: START commandList END;
+command: START commandList END;
 
 command: FORWARD SEMICOLON {printf("newpath 0 0 moveto 0 100 lineto currentpoint translate stroke\n");};
 command: FORWARD expr SEMICOLON {printf("newpath 0 0 moveto 0 exch lineto currentpoint translate stroke\n");};
