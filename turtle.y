@@ -44,7 +44,7 @@ ifhead: IF bool THEN {printf("{\n");};
 command: ifhead command {printf("}\n");} ELSE {printf("{\n");} command {printf("} ifelse\n");};
 command: ifhead command {printf("} if\n");};
 
-command: WHILE bool DO;
+command: WHILE {printf("{\n");} bool {printf("{\n");} DO command {printf("}{exit}ifelse}loop\n");};
 
 command: START commandList END;
 

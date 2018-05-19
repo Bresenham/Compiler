@@ -13,18 +13,22 @@ Curve 45,180,90;
 Size 5.0;
 Color rgb(0,0,255);
 If !(3 == 2) Then
-BEGIN
+Begin
    Color rgb(0,255,0);
    Forward 0.5*100;
-END
+End
 Else
 Begin
    Color rgb(128,0,64);
    Forward 0.1*100;
 End
-// While x > 0 Do
-// Begin
-//   Forward x;
-//   Turn Right;
-//   x = x - 1;
-// End
+x = 3;
+While x > 0 Do
+Begin
+  Color rgb(0,0,0);
+  Forward 50;
+  Turn Right;
+  x = x - 1;
+End
+Color rgb(0,0,255);
+Forward 25;
