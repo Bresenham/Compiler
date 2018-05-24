@@ -49,7 +49,7 @@ command: ifhead command {printf("} if\n");};
 
 command: WHILE {printf("{\n");} bool {printf("{\n");} DO command {printf("}{exit}ifelse}loop\n");};
 
-command: FOR varassign {printf("{\n");} bool SEMICOLON {printf("{\n");} command DO command {printf("}{exit}ifelse}loop\n");};
+command: FOR varassign {printf("{\n");} bool SEMICOLON {printf("{\n");} varassign DO command {printf("}{exit}ifelse}loop\n");};
 
 command: START commandList END;
 

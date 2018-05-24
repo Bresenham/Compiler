@@ -32,7 +32,10 @@ Begin
 End
 For x = 0; x <= 10; x = x + 1; Do
 Begin
-  Color rgb(0,0,255);
-  Forward 25;
+  If x == 5 Then
+  Begin
+    Color rgb(0,0,255);
+    Forward 25;
+  End
 End
 

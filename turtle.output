@@ -47,7 +47,7 @@ Grammar
 
    20 $@6: %empty
 
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 command DO command
+   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign DO command
    22        | START commandList END
    23        | FORWARD SEMICOLON
    24        | FORWARD expr SEMICOLON
@@ -383,7 +383,7 @@ State 13
 
 State 14
 
-   21 command: FOR . varassign $@5 bool SEMICOLON $@6 command DO command
+   21 command: FOR . varassign $@5 bool SEMICOLON $@6 varassign DO command
 
     ID  shift, and go to state 15
 
@@ -771,7 +771,7 @@ State 49
 
 State 50
 
-   21 command: FOR varassign . $@5 bool SEMICOLON $@6 command DO command
+   21 command: FOR varassign . $@5 bool SEMICOLON $@6 varassign DO command
 
     $default  reduce using rule 19 ($@5)
 
@@ -1163,7 +1163,7 @@ State 80
 
 State 81
 
-   21 command: FOR varassign $@5 . bool SEMICOLON $@6 command DO command
+   21 command: FOR varassign $@5 . bool SEMICOLON $@6 varassign DO command
 
     PLUS     shift, and go to state 24
     MINUS    shift, and go to state 25
@@ -1420,7 +1420,7 @@ State 104
 
 State 105
 
-   21 command: FOR varassign $@5 bool . SEMICOLON $@6 command DO command
+   21 command: FOR varassign $@5 bool . SEMICOLON $@6 varassign DO command
    37 bool: bool . OR frel
    38     | bool . AND frel
 
@@ -1541,7 +1541,7 @@ State 114
 
 State 115
 
-   21 command: FOR varassign $@5 bool SEMICOLON . $@6 command DO command
+   21 command: FOR varassign $@5 bool SEMICOLON . $@6 varassign DO command
 
     $default  reduce using rule 20 ($@6)
 
@@ -1607,24 +1607,11 @@ State 119
 
 State 120
 
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 . command DO command
+   21 command: FOR varassign $@5 bool SEMICOLON $@6 . varassign DO command
 
-    FORWARD  shift, and go to state 9
-    TURN     shift, and go to state 10
-    COLOR    shift, and go to state 11
-    IF       shift, and go to state 12
-    WHILE    shift, and go to state 13
-    FOR      shift, and go to state 14
-    ID       shift, and go to state 15
-    SIZE     shift, and go to state 16
-    START    shift, and go to state 17
+    ID  shift, and go to state 15
 
-    $default  reduce using rule 34 ($@10)
-
-    varassign  go to state 19
-    command    go to state 124
-    ifhead     go to state 21
-    $@10       go to state 22
+    varassign  go to state 124
 
 
 State 121
@@ -1667,7 +1654,7 @@ State 123
 
 State 124
 
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 command . DO command
+   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign . DO command
 
     DO  shift, and go to state 127
 
@@ -1692,7 +1679,7 @@ State 126
 
 State 127
 
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 command DO . command
+   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign DO . command
 
     FORWARD  shift, and go to state 9
     TURN     shift, and go to state 10
@@ -1738,7 +1725,7 @@ State 129
 
 State 130
 
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 command DO command .
+   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign DO command .
 
     $default  reduce using rule 21 (command)
 

@@ -33,6 +33,8 @@ tltx 1 sub /tltx exch def
 {
 tltx 10 le {
 tltx 1 add /tltx exch def
+tltx 5 eq {
 0 255 div 0 255 div 255 255 div setrgbcolor
 25 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+} if
 }{exit}ifelse}loop
