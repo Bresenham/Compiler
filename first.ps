@@ -21,7 +21,7 @@ tlttest 20 mul 10 add newpath 0 0 moveto 0 exch lineto currentpoint translate st
 128 255 div 0 255 div 64 255 div setrgbcolor
 0.100000 100 mul newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
 } ifelse
-3 /tltx exch def
+4 /tltx exch def
 {
 tltx 0 gt {
 0 255 div 0 255 div 0 255 div setrgbcolor
@@ -29,5 +29,10 @@ tltx 0 gt {
 270 rotate
 tltx 1 sub /tltx exch def
 }{exit}ifelse}loop
+0 /tltx exch def
+{
+tltx 10 le {
+tltx 1 add /tltx exch def
 0 255 div 0 255 div 255 255 div setrgbcolor
 25 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+}{exit}ifelse}loop

@@ -22,7 +22,7 @@ Begin
    Color rgb(128,0,64);
    Forward 0.1*100;
 End
-x = 3;
+x = 4;
 While x > 0 Do
 Begin
   Color rgb(0,0,0);
@@ -30,5 +30,9 @@ Begin
   Turn Right;
   x = x - 1;
 End
-Color rgb(0,0,255);
-Forward 25;
+For x = 0; x <= 10; x = x + 1; Do
+Begin
+  Color rgb(0,0,255);
+  Forward 25;
+End
+

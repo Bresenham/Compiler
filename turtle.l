@@ -18,11 +18,13 @@ Black			return BLACK;
 Variable		return VAR;
 If			return IF;
 While			return WHILE;
+Whilst			return WHILST;
 Do			return DO;
 AND			return AND;
 OR			return OR;
 Then			return THEN;
 Else			return ELSE;
+For			return FOR;
 Begin			return START;
 End			return END;
 
