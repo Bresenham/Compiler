@@ -1,41 +1,15 @@
-Variable test;
 Variable x;
-x = 1;
-test = 1.2;
-Turn Right 75;
-Forward test*20+10;
+Variable y;
+x = 0;
+y = 7;
+While x < 1 Do
+Begin
+  Variable y;
+  x = x + 1;
+  y = 2;
+  Forward y*10;
+  Turn Right 45;
+End
 Color rgb(255,0,0);
-Size 30.5;
-Forward 34;
-Color rgb(0,255,0);
-Size 1.0;
-Curve 45,180,90;
-Size 5.0;
-Color rgb(0,0,255);
-If !(3 == 2) Then
-Begin
-   Color rgb(0,255,0);
-   Forward 0.5*100;
-End
-Else
-Begin
-   Color rgb(128,0,64);
-   Forward 0.1*100;
-End
-x = 4;
-While x > 0 Do
-Begin
-  Color rgb(0,0,0);
-  Forward 50;
-  Turn Right;
-  x = x - 1;
-End
-For x = 0; x <= 10; x = x + 1; Do
-Begin
-  If x == 5 Then
-  Begin
-    Color rgb(0,0,255);
-    Forward 25;
-  End
-End
+Forward y*10;
 

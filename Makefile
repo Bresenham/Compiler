@@ -1,7 +1,7 @@
 all: turtle first.ps
 
 lex.yy.c: turtle.l
-	flex  -d turtle.l
+	flex turtle.l
 
 turtle.tab.c turtle.tab.h: turtle.y
 	bison -v -d turtle.y

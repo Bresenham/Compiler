@@ -32,26 +32,26 @@ trailer: ;
 
 declist: ;
 declist: declist dec;
-
-dec: VAR ID SEMICOLON {$2->defined = 1;};
+// fprintf(stderr,"LEVEL: %d, %d", $2->level, level);
+dec: VAR ID SEMICOLON {if($2->defined == 1 && $2->level == level) yyerror("Multiple variable declaration!"); else {$2->defined = 1; printf("/tlt%s 0 def ", $2->name); insert($2->name)->defined = 1;}};
 
 commandList: ;
 commandList: commandList command;
 
 
-varassign: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch def\n", $1->name);};
+varassign: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch store\n", $1->name);};
 
 command: varassign;
 
 ifhead: IF bool THEN {printf("{\n");};
-command: ifhead command {printf("}\n");} ELSE {printf("{\n");} command {printf("} ifelse\n");};
+command: ifhead command ELSE {printf("}\n");} {printf("{\n");} command {printf("} ifelse\n");};
 command: ifhead command {printf("} if\n");};
 
 command: WHILE {printf("{\n");} bool {printf("{\n");} DO command {printf("}{exit}ifelse}loop\n");};
 
 command: FOR varassign {printf("{\n");} bool SEMICOLON {printf("{\n");} varassign DO command {printf("}{exit}ifelse}loop\n");};
 
-command: START commandList END;
+command: START {scope_open(); printf("4 dict begin ");} declist commandList END { scope_close(); printf("end ");};
 
 command: FORWARD SEMICOLON {printf("newpath 0 0 moveto 0 100 lineto currentpoint translate stroke\n");};
 command: FORWARD expr SEMICOLON {printf("newpath 0 0 moveto 0 exch lineto currentpoint translate stroke\n");};
