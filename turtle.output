@@ -3,7 +3,7 @@ Terminals unused in grammar
    WHILST
 
 
-State 54 conflicts: 1 shift/reduce
+State 59 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -21,203 +21,232 @@ Grammar
 
     6 dec: VAR ID SEMICOLON
 
-    7 commandList: %empty
-    8            | commandList command
+    7 $@1: %empty
 
-    9 varassign: ID ASSIGN expr SEMICOLON
+    8 dec: PROCEDURE ID $@1 OPENPR paramlist CLOSEDPR START declist commandList END
 
-   10 command: varassign
+    9 paramlist: %empty
+   10          | params
 
-   11 ifhead: IF bool THEN
+   11 params: ID
+   12       | ID COMMA params
 
-   12 $@1: %empty
+   13 commandList: %empty
+   14            | commandList command
 
-   13 $@2: %empty
+   15 varassign: ID ASSIGN expr SEMICOLON
 
-   14 command: ifhead command ELSE $@1 $@2 command
-   15        | ifhead command
+   16 command: varassign
 
-   16 $@3: %empty
+   17 ifhead: IF bool THEN
 
-   17 $@4: %empty
+   18 $@2: %empty
 
-   18 command: WHILE $@3 bool $@4 DO command
+   19 $@3: %empty
 
-   19 $@5: %empty
+   20 command: ifhead command ELSE $@2 $@3 command
+   21        | ifhead command
 
-   20 $@6: %empty
+   22 $@4: %empty
 
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign DO command
+   23 $@5: %empty
 
-   22 $@7: %empty
+   24 command: WHILE $@4 bool $@5 DO command
 
-   23 command: START $@7 declist commandList END
-   24        | FORWARD SEMICOLON
-   25        | FORWARD expr SEMICOLON
-   26        | COLOR col SEMICOLON
+   25 $@6: %empty
 
-   27 $@8: %empty
+   26 $@7: %empty
 
-   28 $@9: %empty
+   27 command: FOR varassign $@6 bool SEMICOLON $@7 varassign DO command
 
-   29 $@10: %empty
+   28 $@8: %empty
 
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
-   31        | TURN LEFT SEMICOLON
-   32        | TURN RIGHT SEMICOLON
-   33        | TURN LEFT expr SEMICOLON
-   34        | TURN RIGHT expr SEMICOLON
+   29 command: START $@8 declist commandList END
+   30        | ID OPENPR arglist CLOSEDPR SEMICOLON
 
-   35 $@11: %empty
+   31 arglist: %empty
+   32        | args
 
-   36 command: $@11 CURVE expr COMMA expr COMMA expr SEMICOLON
-   37        | SIZE expr SEMICOLON
+   33 args: expr
+   34     | args COMMA expr
 
-   38 bool: bool OR frel
-   39     | bool AND frel
-   40     | frel
+   35 command: FORWARD SEMICOLON
+   36        | FORWARD expr SEMICOLON
+   37        | COLOR col SEMICOLON
 
-   41 frel: NOT rel
-   42     | rel
+   38 $@9: %empty
 
-   43 rel: expr LESS expr
-   44    | expr GREATER expr
-   45    | expr LESS ASSIGN expr
-   46    | expr GREATER ASSIGN expr
-   47    | expr NOT ASSIGN expr
-   48    | expr ASSIGN ASSIGN expr
-   49    | OPENPR rel CLOSEDPR
+   39 $@10: %empty
 
-   50 expr: prod
-   51     | expr PLUS prod
-   52     | expr MINUS prod
+   40 $@11: %empty
 
-   53 prod: factor
-   54     | prod STAR factor
-   55     | prod SLASH factor
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
+   42        | TURN LEFT SEMICOLON
+   43        | TURN RIGHT SEMICOLON
+   44        | TURN LEFT expr SEMICOLON
+   45        | TURN RIGHT expr SEMICOLON
 
-   56 factor: atomic
-   57       | PLUS atomic
-   58       | MINUS atomic
+   46 $@12: %empty
 
-   59 atomic: ID
-   60       | INTEGER
-   61       | DOUBLE
-   62       | OPENPR expr CLOSEDPR
+   47 command: $@12 CURVE expr COMMA expr COMMA expr SEMICOLON
+   48        | SIZE expr SEMICOLON
 
-   63 col: RED
-   64    | GREEN
-   65    | BLUE
-   66    | BLACK
+   49 bool: bool OR frel
+   50     | bool AND frel
+   51     | frel
+
+   52 frel: NOT rel
+   53     | rel
+
+   54 rel: expr LESS expr
+   55    | expr GREATER expr
+   56    | expr LESS ASSIGN expr
+   57    | expr GREATER ASSIGN expr
+   58    | expr NOT ASSIGN expr
+   59    | expr ASSIGN ASSIGN expr
+   60    | OPENPR rel CLOSEDPR
+
+   61 expr: prod
+   62     | expr PLUS prod
+   63     | expr MINUS prod
+
+   64 prod: factor
+   65     | prod STAR factor
+   66     | prod SLASH factor
+
+   67 factor: atomic
+   68       | PLUS atomic
+   69       | MINUS atomic
+
+   70 atomic: ID
+   71       | INTEGER
+   72       | DOUBLE
+   73       | OPENPR expr CLOSEDPR
+
+   74 col: RED
+   75    | GREEN
+   76    | BLUE
+   77    | BLACK
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-FORWARD (258) 24 25
-TURN (259) 31 32 33 34
-RIGHT (260) 32 34
-LEFT (261) 31 33
-COLOR (262) 26 30
-RED (263) 63
-GREEN (264) 64
-BLUE (265) 65
-BLACK (266) 66
-RGB (267) 30
+FORWARD (258) 35 36
+TURN (259) 42 43 44 45
+RIGHT (260) 43 45
+LEFT (261) 42 44
+COLOR (262) 37 41
+RED (263) 74
+GREEN (264) 75
+BLUE (265) 76
+BLACK (266) 77
+RGB (267) 41
 VAR (268) 6
-PLUS (269) 51 57
-MINUS (270) 52 58
-STAR (271) 54
-SLASH (272) 55
-OPENPR (273) 30 49 62
-CLOSEDPR (274) 30 49 62
-IF (275) 11
-THEN (276) 11
-AND (277) 39
-OR (278) 38
-ELSE (279) 14
-WHILE (280) 18
-DO (281) 18 21
-FOR (282) 21
+PLUS (269) 62 68
+MINUS (270) 63 69
+STAR (271) 65
+SLASH (272) 66
+OPENPR (273) 8 30 41 60 73
+CLOSEDPR (274) 8 30 41 60 73
+IF (275) 17
+THEN (276) 17
+AND (277) 50
+OR (278) 49
+ELSE (279) 20
+WHILE (280) 24
+DO (281) 24 27
+FOR (282) 27
 WHILST (283)
-INTEGER (284) 60
-DOUBLE (285) 61
-ID (286) 6 9 59
-CURVE (287) 36
-SIZE (288) 37
-COMMA (289) 30 36
-SEMICOLON (290) 6 9 21 24 25 26 30 31 32 33 34 36 37
-ASSIGN (291) 9 45 46 47 48
-LESS (292) 43 45
-GREATER (293) 44 46
-NOT (294) 41 47
-START (295) 23
-END (296) 23
+INTEGER (284) 71
+DOUBLE (285) 72
+ID (286) 6 8 11 12 15 30 70
+CURVE (287) 47
+SIZE (288) 48
+COMMA (289) 12 34 41 47
+SEMICOLON (290) 6 15 27 30 35 36 37 41 42 43 44 45 47 48
+ASSIGN (291) 15 56 57 58 59
+PROCEDURE (292) 8
+LESS (293) 54 56
+GREATER (294) 55 57
+NOT (295) 52 58
+START (296) 8 29
+END (297) 8 29
 
 
 Nonterminals, with rules where they appear
 
-$accept (42)
+$accept (43)
     on left: 0
-program (43)
+program (44)
     on left: 1, on right: 0
-header (44)
+header (45)
     on left: 2, on right: 1
-trailer (45)
+trailer (46)
     on left: 3, on right: 1
-declist (46)
-    on left: 4 5, on right: 1 5 23
-dec (47)
-    on left: 6, on right: 5
-commandList (48)
-    on left: 7 8, on right: 1 8 23
-varassign (49)
-    on left: 9, on right: 10 21
-command (50)
-    on left: 10 14 15 18 21 23 24 25 26 30 31 32 33 34 36 37, on right:
-    8 14 15 18 21
-ifhead (51)
-    on left: 11, on right: 14 15
-$@1 (52)
-    on left: 12, on right: 14
-$@2 (53)
-    on left: 13, on right: 14
-$@3 (54)
-    on left: 16, on right: 18
-$@4 (55)
-    on left: 17, on right: 18
-$@5 (56)
-    on left: 19, on right: 21
-$@6 (57)
-    on left: 20, on right: 21
-$@7 (58)
-    on left: 22, on right: 23
-$@8 (59)
-    on left: 27, on right: 30
-$@9 (60)
-    on left: 28, on right: 30
-$@10 (61)
-    on left: 29, on right: 30
-$@11 (62)
-    on left: 35, on right: 36
-bool (63)
-    on left: 38 39 40, on right: 11 18 21 38 39
-frel (64)
-    on left: 41 42, on right: 38 39 40
-rel (65)
-    on left: 43 44 45 46 47 48 49, on right: 41 42 49
-expr (66)
-    on left: 50 51 52, on right: 9 25 30 33 34 36 37 43 44 45 46 47
-    48 51 52 62
-prod (67)
-    on left: 53 54 55, on right: 50 51 52 54 55
-factor (68)
-    on left: 56 57 58, on right: 53 54 55
-atomic (69)
-    on left: 59 60 61 62, on right: 56 57 58
-col (70)
-    on left: 63 64 65 66, on right: 26
+declist (47)
+    on left: 4 5, on right: 1 5 8 29
+dec (48)
+    on left: 6 8, on right: 5
+$@1 (49)
+    on left: 7, on right: 8
+paramlist (50)
+    on left: 9 10, on right: 8
+params (51)
+    on left: 11 12, on right: 10 12
+commandList (52)
+    on left: 13 14, on right: 1 8 14 29
+varassign (53)
+    on left: 15, on right: 16 27
+command (54)
+    on left: 16 20 21 24 27 29 30 35 36 37 41 42 43 44 45 47 48, on right:
+    14 20 21 24 27
+ifhead (55)
+    on left: 17, on right: 20 21
+$@2 (56)
+    on left: 18, on right: 20
+$@3 (57)
+    on left: 19, on right: 20
+$@4 (58)
+    on left: 22, on right: 24
+$@5 (59)
+    on left: 23, on right: 24
+$@6 (60)
+    on left: 25, on right: 27
+$@7 (61)
+    on left: 26, on right: 27
+$@8 (62)
+    on left: 28, on right: 29
+arglist (63)
+    on left: 31 32, on right: 30
+args (64)
+    on left: 33 34, on right: 32 34
+$@9 (65)
+    on left: 38, on right: 41
+$@10 (66)
+    on left: 39, on right: 41
+$@11 (67)
+    on left: 40, on right: 41
+$@12 (68)
+    on left: 46, on right: 47
+bool (69)
+    on left: 49 50 51, on right: 17 24 27 49 50
+frel (70)
+    on left: 52 53, on right: 49 50 51
+rel (71)
+    on left: 54 55 56 57 58 59 60, on right: 52 53 60
+expr (72)
+    on left: 61 62 63, on right: 15 33 34 36 41 44 45 47 48 54 55 56
+    57 58 59 62 63 73
+prod (73)
+    on left: 64 65 66, on right: 61 62 63 65 66
+factor (74)
+    on left: 67 68 69, on right: 64 65 66
+atomic (75)
+    on left: 70 71 72 73, on right: 67 68 69
+col (76)
+    on left: 74 75 76 77, on right: 37
 
 
 State 0
@@ -258,1536 +287,1776 @@ State 4
     1 program: header declist . commandList trailer
     5 declist: declist . dec
 
-    VAR  shift, and go to state 5
+    VAR        shift, and go to state 5
+    PROCEDURE  shift, and go to state 6
 
-    $default  reduce using rule 7 (commandList)
+    $default  reduce using rule 13 (commandList)
 
-    dec          go to state 6
-    commandList  go to state 7
+    dec          go to state 7
+    commandList  go to state 8
 
 
 State 5
 
     6 dec: VAR . ID SEMICOLON
 
-    ID  shift, and go to state 8
+    ID  shift, and go to state 9
 
 
 State 6
+
+    8 dec: PROCEDURE . ID $@1 OPENPR paramlist CLOSEDPR START declist commandList END
+
+    ID  shift, and go to state 10
+
+
+State 7
 
     5 declist: declist dec .
 
     $default  reduce using rule 5 (declist)
 
 
-State 7
-
-    1 program: header declist commandList . trailer
-    8 commandList: commandList . command
-
-    FORWARD  shift, and go to state 9
-    TURN     shift, and go to state 10
-    COLOR    shift, and go to state 11
-    IF       shift, and go to state 12
-    WHILE    shift, and go to state 13
-    FOR      shift, and go to state 14
-    ID       shift, and go to state 15
-    SIZE     shift, and go to state 16
-    START    shift, and go to state 17
-
-    CURVE     reduce using rule 35 ($@11)
-    $default  reduce using rule 3 (trailer)
-
-    trailer    go to state 18
-    varassign  go to state 19
-    command    go to state 20
-    ifhead     go to state 21
-    $@11       go to state 22
-
-
 State 8
 
-    6 dec: VAR ID . SEMICOLON
+    1 program: header declist commandList . trailer
+   14 commandList: commandList . command
 
-    SEMICOLON  shift, and go to state 23
+    FORWARD  shift, and go to state 11
+    TURN     shift, and go to state 12
+    COLOR    shift, and go to state 13
+    IF       shift, and go to state 14
+    WHILE    shift, and go to state 15
+    FOR      shift, and go to state 16
+    ID       shift, and go to state 17
+    SIZE     shift, and go to state 18
+    START    shift, and go to state 19
+
+    CURVE     reduce using rule 46 ($@12)
+    $default  reduce using rule 3 (trailer)
+
+    trailer    go to state 20
+    varassign  go to state 21
+    command    go to state 22
+    ifhead     go to state 23
+    $@12       go to state 24
 
 
 State 9
 
-   24 command: FORWARD . SEMICOLON
-   25        | FORWARD . expr SEMICOLON
+    6 dec: VAR ID . SEMICOLON
 
-    PLUS       shift, and go to state 24
-    MINUS      shift, and go to state 25
-    OPENPR     shift, and go to state 26
-    INTEGER    shift, and go to state 27
-    DOUBLE     shift, and go to state 28
-    ID         shift, and go to state 29
-    SEMICOLON  shift, and go to state 30
-
-    expr    go to state 31
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    SEMICOLON  shift, and go to state 25
 
 
 State 10
 
-   31 command: TURN . LEFT SEMICOLON
-   32        | TURN . RIGHT SEMICOLON
-   33        | TURN . LEFT expr SEMICOLON
-   34        | TURN . RIGHT expr SEMICOLON
+    8 dec: PROCEDURE ID . $@1 OPENPR paramlist CLOSEDPR START declist commandList END
 
-    RIGHT  shift, and go to state 35
-    LEFT   shift, and go to state 36
+    $default  reduce using rule 7 ($@1)
+
+    $@1  go to state 26
 
 
 State 11
 
-   26 command: COLOR . col SEMICOLON
-   30        | COLOR . RGB OPENPR expr $@8 COMMA expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
+   35 command: FORWARD . SEMICOLON
+   36        | FORWARD . expr SEMICOLON
 
-    RED    shift, and go to state 37
-    GREEN  shift, and go to state 38
-    BLUE   shift, and go to state 39
-    BLACK  shift, and go to state 40
-    RGB    shift, and go to state 41
+    PLUS       shift, and go to state 27
+    MINUS      shift, and go to state 28
+    OPENPR     shift, and go to state 29
+    INTEGER    shift, and go to state 30
+    DOUBLE     shift, and go to state 31
+    ID         shift, and go to state 32
+    SEMICOLON  shift, and go to state 33
 
-    col  go to state 42
+    expr    go to state 34
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 12
 
-   11 ifhead: IF . bool THEN
+   42 command: TURN . LEFT SEMICOLON
+   43        | TURN . RIGHT SEMICOLON
+   44        | TURN . LEFT expr SEMICOLON
+   45        | TURN . RIGHT expr SEMICOLON
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 43
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-    NOT      shift, and go to state 44
-
-    bool    go to state 45
-    frel    go to state 46
-    rel     go to state 47
-    expr    go to state 48
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    RIGHT  shift, and go to state 38
+    LEFT   shift, and go to state 39
 
 
 State 13
 
-   18 command: WHILE . $@3 bool $@4 DO command
+   37 command: COLOR . col SEMICOLON
+   41        | COLOR . RGB OPENPR expr $@9 COMMA expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
 
-    $default  reduce using rule 16 ($@3)
+    RED    shift, and go to state 40
+    GREEN  shift, and go to state 41
+    BLUE   shift, and go to state 42
+    BLACK  shift, and go to state 43
+    RGB    shift, and go to state 44
 
-    $@3  go to state 49
+    col  go to state 45
 
 
 State 14
 
-   21 command: FOR . varassign $@5 bool SEMICOLON $@6 varassign DO command
+   17 ifhead: IF . bool THEN
 
-    ID  shift, and go to state 15
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 46
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+    NOT      shift, and go to state 47
 
-    varassign  go to state 50
+    bool    go to state 48
+    frel    go to state 49
+    rel     go to state 50
+    expr    go to state 51
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 15
 
-    9 varassign: ID . ASSIGN expr SEMICOLON
+   24 command: WHILE . $@4 bool $@5 DO command
 
-    ASSIGN  shift, and go to state 51
+    $default  reduce using rule 22 ($@4)
+
+    $@4  go to state 52
 
 
 State 16
 
-   37 command: SIZE . expr SEMICOLON
+   27 command: FOR . varassign $@6 bool SEMICOLON $@7 varassign DO command
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
+    ID  shift, and go to state 53
 
-    expr    go to state 52
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    varassign  go to state 54
 
 
 State 17
 
-   23 command: START . $@7 declist commandList END
+   15 varassign: ID . ASSIGN expr SEMICOLON
+   30 command: ID . OPENPR arglist CLOSEDPR SEMICOLON
 
-    $default  reduce using rule 22 ($@7)
-
-    $@7  go to state 53
+    OPENPR  shift, and go to state 55
+    ASSIGN  shift, and go to state 56
 
 
 State 18
+
+   48 command: SIZE . expr SEMICOLON
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 57
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 19
+
+   29 command: START . $@8 declist commandList END
+
+    $default  reduce using rule 28 ($@8)
+
+    $@8  go to state 58
+
+
+State 20
 
     1 program: header declist commandList trailer .
 
     $default  reduce using rule 1 (program)
 
 
-State 19
-
-   10 command: varassign .
-
-    $default  reduce using rule 10 (command)
-
-
-State 20
-
-    8 commandList: commandList command .
-
-    $default  reduce using rule 8 (commandList)
-
-
 State 21
 
-   14 command: ifhead . command ELSE $@1 $@2 command
-   15        | ifhead . command
+   16 command: varassign .
 
-    FORWARD  shift, and go to state 9
-    TURN     shift, and go to state 10
-    COLOR    shift, and go to state 11
-    IF       shift, and go to state 12
-    WHILE    shift, and go to state 13
-    FOR      shift, and go to state 14
-    ID       shift, and go to state 15
-    SIZE     shift, and go to state 16
-    START    shift, and go to state 17
-
-    $default  reduce using rule 35 ($@11)
-
-    varassign  go to state 19
-    command    go to state 54
-    ifhead     go to state 21
-    $@11       go to state 22
+    $default  reduce using rule 16 (command)
 
 
 State 22
 
-   36 command: $@11 . CURVE expr COMMA expr COMMA expr SEMICOLON
+   14 commandList: commandList command .
 
-    CURVE  shift, and go to state 55
+    $default  reduce using rule 14 (commandList)
 
 
 State 23
+
+   20 command: ifhead . command ELSE $@2 $@3 command
+   21        | ifhead . command
+
+    FORWARD  shift, and go to state 11
+    TURN     shift, and go to state 12
+    COLOR    shift, and go to state 13
+    IF       shift, and go to state 14
+    WHILE    shift, and go to state 15
+    FOR      shift, and go to state 16
+    ID       shift, and go to state 17
+    SIZE     shift, and go to state 18
+    START    shift, and go to state 19
+
+    $default  reduce using rule 46 ($@12)
+
+    varassign  go to state 21
+    command    go to state 59
+    ifhead     go to state 23
+    $@12       go to state 24
+
+
+State 24
+
+   47 command: $@12 . CURVE expr COMMA expr COMMA expr SEMICOLON
+
+    CURVE  shift, and go to state 60
+
+
+State 25
 
     6 dec: VAR ID SEMICOLON .
 
     $default  reduce using rule 6 (dec)
 
 
-State 24
-
-   57 factor: PLUS . atomic
-
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    atomic  go to state 56
-
-
-State 25
-
-   58 factor: MINUS . atomic
-
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    atomic  go to state 57
-
-
 State 26
 
-   62 atomic: OPENPR . expr CLOSEDPR
+    8 dec: PROCEDURE ID $@1 . OPENPR paramlist CLOSEDPR START declist commandList END
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 58
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    OPENPR  shift, and go to state 61
 
 
 State 27
 
-   60 atomic: INTEGER .
+   68 factor: PLUS . atomic
 
-    $default  reduce using rule 60 (atomic)
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    atomic  go to state 62
 
 
 State 28
 
-   61 atomic: DOUBLE .
+   69 factor: MINUS . atomic
 
-    $default  reduce using rule 61 (atomic)
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    atomic  go to state 63
 
 
 State 29
 
-   59 atomic: ID .
+   73 atomic: OPENPR . expr CLOSEDPR
 
-    $default  reduce using rule 59 (atomic)
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 64
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 30
 
-   24 command: FORWARD SEMICOLON .
+   71 atomic: INTEGER .
 
-    $default  reduce using rule 24 (command)
+    $default  reduce using rule 71 (atomic)
 
 
 State 31
 
-   25 command: FORWARD expr . SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
+   72 atomic: DOUBLE .
 
-    PLUS       shift, and go to state 59
-    MINUS      shift, and go to state 60
-    SEMICOLON  shift, and go to state 61
+    $default  reduce using rule 72 (atomic)
 
 
 State 32
 
-   50 expr: prod .
-   54 prod: prod . STAR factor
-   55     | prod . SLASH factor
+   70 atomic: ID .
 
-    STAR   shift, and go to state 62
-    SLASH  shift, and go to state 63
-
-    $default  reduce using rule 50 (expr)
+    $default  reduce using rule 70 (atomic)
 
 
 State 33
 
-   53 prod: factor .
+   35 command: FORWARD SEMICOLON .
 
-    $default  reduce using rule 53 (prod)
+    $default  reduce using rule 35 (command)
 
 
 State 34
 
-   56 factor: atomic .
+   36 command: FORWARD expr . SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
 
-    $default  reduce using rule 56 (factor)
+    PLUS       shift, and go to state 65
+    MINUS      shift, and go to state 66
+    SEMICOLON  shift, and go to state 67
 
 
 State 35
 
-   32 command: TURN RIGHT . SEMICOLON
-   34        | TURN RIGHT . expr SEMICOLON
+   61 expr: prod .
+   65 prod: prod . STAR factor
+   66     | prod . SLASH factor
 
-    PLUS       shift, and go to state 24
-    MINUS      shift, and go to state 25
-    OPENPR     shift, and go to state 26
-    INTEGER    shift, and go to state 27
-    DOUBLE     shift, and go to state 28
-    ID         shift, and go to state 29
-    SEMICOLON  shift, and go to state 64
+    STAR   shift, and go to state 68
+    SLASH  shift, and go to state 69
 
-    expr    go to state 65
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    $default  reduce using rule 61 (expr)
 
 
 State 36
 
-   31 command: TURN LEFT . SEMICOLON
-   33        | TURN LEFT . expr SEMICOLON
+   64 prod: factor .
 
-    PLUS       shift, and go to state 24
-    MINUS      shift, and go to state 25
-    OPENPR     shift, and go to state 26
-    INTEGER    shift, and go to state 27
-    DOUBLE     shift, and go to state 28
-    ID         shift, and go to state 29
-    SEMICOLON  shift, and go to state 66
-
-    expr    go to state 67
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    $default  reduce using rule 64 (prod)
 
 
 State 37
 
-   63 col: RED .
+   67 factor: atomic .
 
-    $default  reduce using rule 63 (col)
+    $default  reduce using rule 67 (factor)
 
 
 State 38
 
-   64 col: GREEN .
+   43 command: TURN RIGHT . SEMICOLON
+   45        | TURN RIGHT . expr SEMICOLON
 
-    $default  reduce using rule 64 (col)
+    PLUS       shift, and go to state 27
+    MINUS      shift, and go to state 28
+    OPENPR     shift, and go to state 29
+    INTEGER    shift, and go to state 30
+    DOUBLE     shift, and go to state 31
+    ID         shift, and go to state 32
+    SEMICOLON  shift, and go to state 70
+
+    expr    go to state 71
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 39
 
-   65 col: BLUE .
+   42 command: TURN LEFT . SEMICOLON
+   44        | TURN LEFT . expr SEMICOLON
 
-    $default  reduce using rule 65 (col)
+    PLUS       shift, and go to state 27
+    MINUS      shift, and go to state 28
+    OPENPR     shift, and go to state 29
+    INTEGER    shift, and go to state 30
+    DOUBLE     shift, and go to state 31
+    ID         shift, and go to state 32
+    SEMICOLON  shift, and go to state 72
+
+    expr    go to state 73
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 40
 
-   66 col: BLACK .
+   74 col: RED .
 
-    $default  reduce using rule 66 (col)
+    $default  reduce using rule 74 (col)
 
 
 State 41
 
-   30 command: COLOR RGB . OPENPR expr $@8 COMMA expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
+   75 col: GREEN .
 
-    OPENPR  shift, and go to state 68
+    $default  reduce using rule 75 (col)
 
 
 State 42
 
-   26 command: COLOR col . SEMICOLON
+   76 col: BLUE .
 
-    SEMICOLON  shift, and go to state 69
+    $default  reduce using rule 76 (col)
 
 
 State 43
 
-   49 rel: OPENPR . rel CLOSEDPR
-   62 atomic: OPENPR . expr CLOSEDPR
+   77 col: BLACK .
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 43
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    rel     go to state 70
-    expr    go to state 71
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    $default  reduce using rule 77 (col)
 
 
 State 44
 
-   41 frel: NOT . rel
+   41 command: COLOR RGB . OPENPR expr $@9 COMMA expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 43
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    rel     go to state 72
-    expr    go to state 48
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    OPENPR  shift, and go to state 74
 
 
 State 45
 
-   11 ifhead: IF bool . THEN
-   38 bool: bool . OR frel
-   39     | bool . AND frel
+   37 command: COLOR col . SEMICOLON
 
-    THEN  shift, and go to state 73
-    AND   shift, and go to state 74
-    OR    shift, and go to state 75
+    SEMICOLON  shift, and go to state 75
 
 
 State 46
 
-   40 bool: frel .
+   60 rel: OPENPR . rel CLOSEDPR
+   73 atomic: OPENPR . expr CLOSEDPR
 
-    $default  reduce using rule 40 (bool)
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 46
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    rel     go to state 76
+    expr    go to state 77
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 47
 
-   42 frel: rel .
+   52 frel: NOT . rel
 
-    $default  reduce using rule 42 (frel)
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 46
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    rel     go to state 78
+    expr    go to state 51
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 48
 
-   43 rel: expr . LESS expr
-   44    | expr . GREATER expr
-   45    | expr . LESS ASSIGN expr
-   46    | expr . GREATER ASSIGN expr
-   47    | expr . NOT ASSIGN expr
-   48    | expr . ASSIGN ASSIGN expr
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
+   17 ifhead: IF bool . THEN
+   49 bool: bool . OR frel
+   50     | bool . AND frel
 
-    PLUS     shift, and go to state 59
-    MINUS    shift, and go to state 60
-    ASSIGN   shift, and go to state 76
-    LESS     shift, and go to state 77
-    GREATER  shift, and go to state 78
-    NOT      shift, and go to state 79
+    THEN  shift, and go to state 79
+    AND   shift, and go to state 80
+    OR    shift, and go to state 81
 
 
 State 49
 
-   18 command: WHILE $@3 . bool $@4 DO command
+   51 bool: frel .
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 43
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-    NOT      shift, and go to state 44
-
-    bool    go to state 80
-    frel    go to state 46
-    rel     go to state 47
-    expr    go to state 48
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    $default  reduce using rule 51 (bool)
 
 
 State 50
 
-   21 command: FOR varassign . $@5 bool SEMICOLON $@6 varassign DO command
+   53 frel: rel .
 
-    $default  reduce using rule 19 ($@5)
-
-    $@5  go to state 81
+    $default  reduce using rule 53 (frel)
 
 
 State 51
 
-    9 varassign: ID ASSIGN . expr SEMICOLON
+   54 rel: expr . LESS expr
+   55    | expr . GREATER expr
+   56    | expr . LESS ASSIGN expr
+   57    | expr . GREATER ASSIGN expr
+   58    | expr . NOT ASSIGN expr
+   59    | expr . ASSIGN ASSIGN expr
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 82
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    PLUS     shift, and go to state 65
+    MINUS    shift, and go to state 66
+    ASSIGN   shift, and go to state 82
+    LESS     shift, and go to state 83
+    GREATER  shift, and go to state 84
+    NOT      shift, and go to state 85
 
 
 State 52
 
-   37 command: SIZE expr . SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
+   24 command: WHILE $@4 . bool $@5 DO command
 
-    PLUS       shift, and go to state 59
-    MINUS      shift, and go to state 60
-    SEMICOLON  shift, and go to state 83
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 46
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+    NOT      shift, and go to state 47
+
+    bool    go to state 86
+    frel    go to state 49
+    rel     go to state 50
+    expr    go to state 51
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 53
 
-   23 command: START $@7 . declist commandList END
+   15 varassign: ID . ASSIGN expr SEMICOLON
 
-    $default  reduce using rule 4 (declist)
-
-    declist  go to state 84
+    ASSIGN  shift, and go to state 56
 
 
 State 54
 
-   14 command: ifhead command . ELSE $@1 $@2 command
-   15        | ifhead command .
+   27 command: FOR varassign . $@6 bool SEMICOLON $@7 varassign DO command
 
-    ELSE  shift, and go to state 85
+    $default  reduce using rule 25 ($@6)
 
-    ELSE      [reduce using rule 15 (command)]
-    $default  reduce using rule 15 (command)
+    $@6  go to state 87
 
 
 State 55
 
-   36 command: $@11 CURVE . expr COMMA expr COMMA expr SEMICOLON
+   30 command: ID OPENPR . arglist CLOSEDPR SEMICOLON
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
 
-    expr    go to state 86
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    $default  reduce using rule 31 (arglist)
+
+    arglist  go to state 88
+    args     go to state 89
+    expr     go to state 90
+    prod     go to state 35
+    factor   go to state 36
+    atomic   go to state 37
 
 
 State 56
 
-   57 factor: PLUS atomic .
+   15 varassign: ID ASSIGN . expr SEMICOLON
 
-    $default  reduce using rule 57 (factor)
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 91
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 57
 
-   58 factor: MINUS atomic .
+   48 command: SIZE expr . SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
 
-    $default  reduce using rule 58 (factor)
+    PLUS       shift, and go to state 65
+    MINUS      shift, and go to state 66
+    SEMICOLON  shift, and go to state 92
 
 
 State 58
 
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-   62 atomic: OPENPR expr . CLOSEDPR
+   29 command: START $@8 . declist commandList END
 
-    PLUS      shift, and go to state 59
-    MINUS     shift, and go to state 60
-    CLOSEDPR  shift, and go to state 87
+    $default  reduce using rule 4 (declist)
+
+    declist  go to state 93
 
 
 State 59
 
-   51 expr: expr PLUS . prod
+   20 command: ifhead command . ELSE $@2 $@3 command
+   21        | ifhead command .
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
+    ELSE  shift, and go to state 94
 
-    prod    go to state 88
-    factor  go to state 33
-    atomic  go to state 34
+    ELSE      [reduce using rule 21 (command)]
+    $default  reduce using rule 21 (command)
 
 
 State 60
 
-   52 expr: expr MINUS . prod
+   47 command: $@12 CURVE . expr COMMA expr COMMA expr SEMICOLON
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
 
-    prod    go to state 89
-    factor  go to state 33
-    atomic  go to state 34
+    expr    go to state 95
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 61
 
-   25 command: FORWARD expr SEMICOLON .
+    8 dec: PROCEDURE ID $@1 OPENPR . paramlist CLOSEDPR START declist commandList END
 
-    $default  reduce using rule 25 (command)
+    ID  shift, and go to state 96
+
+    $default  reduce using rule 9 (paramlist)
+
+    paramlist  go to state 97
+    params     go to state 98
 
 
 State 62
 
-   54 prod: prod STAR . factor
+   68 factor: PLUS atomic .
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    factor  go to state 90
-    atomic  go to state 34
+    $default  reduce using rule 68 (factor)
 
 
 State 63
 
-   55 prod: prod SLASH . factor
+   69 factor: MINUS atomic .
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    factor  go to state 91
-    atomic  go to state 34
+    $default  reduce using rule 69 (factor)
 
 
 State 64
 
-   32 command: TURN RIGHT SEMICOLON .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+   73 atomic: OPENPR expr . CLOSEDPR
 
-    $default  reduce using rule 32 (command)
+    PLUS      shift, and go to state 65
+    MINUS     shift, and go to state 66
+    CLOSEDPR  shift, and go to state 99
 
 
 State 65
 
-   34 command: TURN RIGHT expr . SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
+   62 expr: expr PLUS . prod
 
-    PLUS       shift, and go to state 59
-    MINUS      shift, and go to state 60
-    SEMICOLON  shift, and go to state 92
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    prod    go to state 100
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 66
 
-   31 command: TURN LEFT SEMICOLON .
+   63 expr: expr MINUS . prod
 
-    $default  reduce using rule 31 (command)
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    prod    go to state 101
+    factor  go to state 36
+    atomic  go to state 37
 
 
 State 67
 
-   33 command: TURN LEFT expr . SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS       shift, and go to state 59
-    MINUS      shift, and go to state 60
-    SEMICOLON  shift, and go to state 93
-
-
-State 68
-
-   30 command: COLOR RGB OPENPR . expr $@8 COMMA expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 94
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 69
-
-   26 command: COLOR col SEMICOLON .
-
-    $default  reduce using rule 26 (command)
-
-
-State 70
-
-   49 rel: OPENPR rel . CLOSEDPR
-
-    CLOSEDPR  shift, and go to state 95
-
-
-State 71
-
-   43 rel: expr . LESS expr
-   44    | expr . GREATER expr
-   45    | expr . LESS ASSIGN expr
-   46    | expr . GREATER ASSIGN expr
-   47    | expr . NOT ASSIGN expr
-   48    | expr . ASSIGN ASSIGN expr
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-   62 atomic: OPENPR expr . CLOSEDPR
-
-    PLUS      shift, and go to state 59
-    MINUS     shift, and go to state 60
-    CLOSEDPR  shift, and go to state 87
-    ASSIGN    shift, and go to state 76
-    LESS      shift, and go to state 77
-    GREATER   shift, and go to state 78
-    NOT       shift, and go to state 79
-
-
-State 72
-
-   41 frel: NOT rel .
-
-    $default  reduce using rule 41 (frel)
-
-
-State 73
-
-   11 ifhead: IF bool THEN .
-
-    $default  reduce using rule 11 (ifhead)
-
-
-State 74
-
-   39 bool: bool AND . frel
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 43
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-    NOT      shift, and go to state 44
-
-    frel    go to state 96
-    rel     go to state 47
-    expr    go to state 48
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 75
-
-   38 bool: bool OR . frel
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 43
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-    NOT      shift, and go to state 44
-
-    frel    go to state 97
-    rel     go to state 47
-    expr    go to state 48
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 76
-
-   48 rel: expr ASSIGN . ASSIGN expr
-
-    ASSIGN  shift, and go to state 98
-
-
-State 77
-
-   43 rel: expr LESS . expr
-   45    | expr LESS . ASSIGN expr
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-    ASSIGN   shift, and go to state 99
-
-    expr    go to state 100
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 78
-
-   44 rel: expr GREATER . expr
-   46    | expr GREATER . ASSIGN expr
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-    ASSIGN   shift, and go to state 101
-
-    expr    go to state 102
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 79
-
-   47 rel: expr NOT . ASSIGN expr
-
-    ASSIGN  shift, and go to state 103
-
-
-State 80
-
-   18 command: WHILE $@3 bool . $@4 DO command
-   38 bool: bool . OR frel
-   39     | bool . AND frel
-
-    AND  shift, and go to state 74
-    OR   shift, and go to state 75
-
-    $default  reduce using rule 17 ($@4)
-
-    $@4  go to state 104
-
-
-State 81
-
-   21 command: FOR varassign $@5 . bool SEMICOLON $@6 varassign DO command
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 43
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-    NOT      shift, and go to state 44
-
-    bool    go to state 105
-    frel    go to state 46
-    rel     go to state 47
-    expr    go to state 48
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 82
-
-    9 varassign: ID ASSIGN expr . SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS       shift, and go to state 59
-    MINUS      shift, and go to state 60
-    SEMICOLON  shift, and go to state 106
-
-
-State 83
-
-   37 command: SIZE expr SEMICOLON .
-
-    $default  reduce using rule 37 (command)
-
-
-State 84
-
-    5 declist: declist . dec
-   23 command: START $@7 declist . commandList END
-
-    VAR  shift, and go to state 5
-
-    $default  reduce using rule 7 (commandList)
-
-    dec          go to state 6
-    commandList  go to state 107
-
-
-State 85
-
-   14 command: ifhead command ELSE . $@1 $@2 command
-
-    $default  reduce using rule 12 ($@1)
-
-    $@1  go to state 108
-
-
-State 86
-
-   36 command: $@11 CURVE expr . COMMA expr COMMA expr SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-    COMMA  shift, and go to state 109
-
-
-State 87
-
-   62 atomic: OPENPR expr CLOSEDPR .
-
-    $default  reduce using rule 62 (atomic)
-
-
-State 88
-
-   51 expr: expr PLUS prod .
-   54 prod: prod . STAR factor
-   55     | prod . SLASH factor
-
-    STAR   shift, and go to state 62
-    SLASH  shift, and go to state 63
-
-    $default  reduce using rule 51 (expr)
-
-
-State 89
-
-   52 expr: expr MINUS prod .
-   54 prod: prod . STAR factor
-   55     | prod . SLASH factor
-
-    STAR   shift, and go to state 62
-    SLASH  shift, and go to state 63
-
-    $default  reduce using rule 52 (expr)
-
-
-State 90
-
-   54 prod: prod STAR factor .
-
-    $default  reduce using rule 54 (prod)
-
-
-State 91
-
-   55 prod: prod SLASH factor .
-
-    $default  reduce using rule 55 (prod)
-
-
-State 92
-
-   34 command: TURN RIGHT expr SEMICOLON .
-
-    $default  reduce using rule 34 (command)
-
-
-State 93
-
-   33 command: TURN LEFT expr SEMICOLON .
-
-    $default  reduce using rule 33 (command)
-
-
-State 94
-
-   30 command: COLOR RGB OPENPR expr . $@8 COMMA expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 27 ($@8)
-
-    $@8  go to state 110
-
-
-State 95
-
-   49 rel: OPENPR rel CLOSEDPR .
-
-    $default  reduce using rule 49 (rel)
-
-
-State 96
-
-   39 bool: bool AND frel .
-
-    $default  reduce using rule 39 (bool)
-
-
-State 97
-
-   38 bool: bool OR frel .
-
-    $default  reduce using rule 38 (bool)
-
-
-State 98
-
-   48 rel: expr ASSIGN ASSIGN . expr
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 111
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 99
-
-   45 rel: expr LESS ASSIGN . expr
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 112
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 100
-
-   43 rel: expr LESS expr .
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 43 (rel)
-
-
-State 101
-
-   46 rel: expr GREATER ASSIGN . expr
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 113
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 102
-
-   44 rel: expr GREATER expr .
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 44 (rel)
-
-
-State 103
-
-   47 rel: expr NOT ASSIGN . expr
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 114
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 104
-
-   18 command: WHILE $@3 bool $@4 . DO command
-
-    DO  shift, and go to state 115
-
-
-State 105
-
-   21 command: FOR varassign $@5 bool . SEMICOLON $@6 varassign DO command
-   38 bool: bool . OR frel
-   39     | bool . AND frel
-
-    AND        shift, and go to state 74
-    OR         shift, and go to state 75
-    SEMICOLON  shift, and go to state 116
-
-
-State 106
-
-    9 varassign: ID ASSIGN expr SEMICOLON .
-
-    $default  reduce using rule 9 (varassign)
-
-
-State 107
-
-    8 commandList: commandList . command
-   23 command: START $@7 declist commandList . END
-
-    FORWARD  shift, and go to state 9
-    TURN     shift, and go to state 10
-    COLOR    shift, and go to state 11
-    IF       shift, and go to state 12
-    WHILE    shift, and go to state 13
-    FOR      shift, and go to state 14
-    ID       shift, and go to state 15
-    SIZE     shift, and go to state 16
-    START    shift, and go to state 17
-    END      shift, and go to state 117
-
-    $default  reduce using rule 35 ($@11)
-
-    varassign  go to state 19
-    command    go to state 20
-    ifhead     go to state 21
-    $@11       go to state 22
-
-
-State 108
-
-   14 command: ifhead command ELSE $@1 . $@2 command
-
-    $default  reduce using rule 13 ($@2)
-
-    $@2  go to state 118
-
-
-State 109
-
-   36 command: $@11 CURVE expr COMMA . expr COMMA expr SEMICOLON
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 119
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 110
-
-   30 command: COLOR RGB OPENPR expr $@8 . COMMA expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
-
-    COMMA  shift, and go to state 120
-
-
-State 111
-
-   48 rel: expr ASSIGN ASSIGN expr .
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 48 (rel)
-
-
-State 112
-
-   45 rel: expr LESS ASSIGN expr .
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 45 (rel)
-
-
-State 113
-
-   46 rel: expr GREATER ASSIGN expr .
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 46 (rel)
-
-
-State 114
-
-   47 rel: expr NOT ASSIGN expr .
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 47 (rel)
-
-
-State 115
-
-   18 command: WHILE $@3 bool $@4 DO . command
-
-    FORWARD  shift, and go to state 9
-    TURN     shift, and go to state 10
-    COLOR    shift, and go to state 11
-    IF       shift, and go to state 12
-    WHILE    shift, and go to state 13
-    FOR      shift, and go to state 14
-    ID       shift, and go to state 15
-    SIZE     shift, and go to state 16
-    START    shift, and go to state 17
-
-    $default  reduce using rule 35 ($@11)
-
-    varassign  go to state 19
-    command    go to state 121
-    ifhead     go to state 21
-    $@11       go to state 22
-
-
-State 116
-
-   21 command: FOR varassign $@5 bool SEMICOLON . $@6 varassign DO command
-
-    $default  reduce using rule 20 ($@6)
-
-    $@6  go to state 122
-
-
-State 117
-
-   23 command: START $@7 declist commandList END .
-
-    $default  reduce using rule 23 (command)
-
-
-State 118
-
-   14 command: ifhead command ELSE $@1 $@2 . command
-
-    FORWARD  shift, and go to state 9
-    TURN     shift, and go to state 10
-    COLOR    shift, and go to state 11
-    IF       shift, and go to state 12
-    WHILE    shift, and go to state 13
-    FOR      shift, and go to state 14
-    ID       shift, and go to state 15
-    SIZE     shift, and go to state 16
-    START    shift, and go to state 17
-
-    $default  reduce using rule 35 ($@11)
-
-    varassign  go to state 19
-    command    go to state 123
-    ifhead     go to state 21
-    $@11       go to state 22
-
-
-State 119
-
-   36 command: $@11 CURVE expr COMMA expr . COMMA expr SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-    COMMA  shift, and go to state 124
-
-
-State 120
-
-   30 command: COLOR RGB OPENPR expr $@8 COMMA . expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 125
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 121
-
-   18 command: WHILE $@3 bool $@4 DO command .
-
-    $default  reduce using rule 18 (command)
-
-
-State 122
-
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 . varassign DO command
-
-    ID  shift, and go to state 15
-
-    varassign  go to state 126
-
-
-State 123
-
-   14 command: ifhead command ELSE $@1 $@2 command .
-
-    $default  reduce using rule 14 (command)
-
-
-State 124
-
-   36 command: $@11 CURVE expr COMMA expr COMMA . expr SEMICOLON
-
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
-
-    expr    go to state 127
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
-
-
-State 125
-
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr . $@9 COMMA expr $@10 CLOSEDPR SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 28 ($@9)
-
-    $@9  go to state 128
-
-
-State 126
-
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign . DO command
-
-    DO  shift, and go to state 129
-
-
-State 127
-
-   36 command: $@11 CURVE expr COMMA expr COMMA expr . SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
-
-    PLUS       shift, and go to state 59
-    MINUS      shift, and go to state 60
-    SEMICOLON  shift, and go to state 130
-
-
-State 128
-
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr $@9 . COMMA expr $@10 CLOSEDPR SEMICOLON
-
-    COMMA  shift, and go to state 131
-
-
-State 129
-
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign DO . command
-
-    FORWARD  shift, and go to state 9
-    TURN     shift, and go to state 10
-    COLOR    shift, and go to state 11
-    IF       shift, and go to state 12
-    WHILE    shift, and go to state 13
-    FOR      shift, and go to state 14
-    ID       shift, and go to state 15
-    SIZE     shift, and go to state 16
-    START    shift, and go to state 17
-
-    $default  reduce using rule 35 ($@11)
-
-    varassign  go to state 19
-    command    go to state 132
-    ifhead     go to state 21
-    $@11       go to state 22
-
-
-State 130
-
-   36 command: $@11 CURVE expr COMMA expr COMMA expr SEMICOLON .
+   36 command: FORWARD expr SEMICOLON .
 
     $default  reduce using rule 36 (command)
 
 
+State 68
+
+   65 prod: prod STAR . factor
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    factor  go to state 102
+    atomic  go to state 37
+
+
+State 69
+
+   66 prod: prod SLASH . factor
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    factor  go to state 103
+    atomic  go to state 37
+
+
+State 70
+
+   43 command: TURN RIGHT SEMICOLON .
+
+    $default  reduce using rule 43 (command)
+
+
+State 71
+
+   45 command: TURN RIGHT expr . SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS       shift, and go to state 65
+    MINUS      shift, and go to state 66
+    SEMICOLON  shift, and go to state 104
+
+
+State 72
+
+   42 command: TURN LEFT SEMICOLON .
+
+    $default  reduce using rule 42 (command)
+
+
+State 73
+
+   44 command: TURN LEFT expr . SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS       shift, and go to state 65
+    MINUS      shift, and go to state 66
+    SEMICOLON  shift, and go to state 105
+
+
+State 74
+
+   41 command: COLOR RGB OPENPR . expr $@9 COMMA expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 106
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 75
+
+   37 command: COLOR col SEMICOLON .
+
+    $default  reduce using rule 37 (command)
+
+
+State 76
+
+   60 rel: OPENPR rel . CLOSEDPR
+
+    CLOSEDPR  shift, and go to state 107
+
+
+State 77
+
+   54 rel: expr . LESS expr
+   55    | expr . GREATER expr
+   56    | expr . LESS ASSIGN expr
+   57    | expr . GREATER ASSIGN expr
+   58    | expr . NOT ASSIGN expr
+   59    | expr . ASSIGN ASSIGN expr
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+   73 atomic: OPENPR expr . CLOSEDPR
+
+    PLUS      shift, and go to state 65
+    MINUS     shift, and go to state 66
+    CLOSEDPR  shift, and go to state 99
+    ASSIGN    shift, and go to state 82
+    LESS      shift, and go to state 83
+    GREATER   shift, and go to state 84
+    NOT       shift, and go to state 85
+
+
+State 78
+
+   52 frel: NOT rel .
+
+    $default  reduce using rule 52 (frel)
+
+
+State 79
+
+   17 ifhead: IF bool THEN .
+
+    $default  reduce using rule 17 (ifhead)
+
+
+State 80
+
+   50 bool: bool AND . frel
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 46
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+    NOT      shift, and go to state 47
+
+    frel    go to state 108
+    rel     go to state 50
+    expr    go to state 51
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 81
+
+   49 bool: bool OR . frel
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 46
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+    NOT      shift, and go to state 47
+
+    frel    go to state 109
+    rel     go to state 50
+    expr    go to state 51
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 82
+
+   59 rel: expr ASSIGN . ASSIGN expr
+
+    ASSIGN  shift, and go to state 110
+
+
+State 83
+
+   54 rel: expr LESS . expr
+   56    | expr LESS . ASSIGN expr
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+    ASSIGN   shift, and go to state 111
+
+    expr    go to state 112
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 84
+
+   55 rel: expr GREATER . expr
+   57    | expr GREATER . ASSIGN expr
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+    ASSIGN   shift, and go to state 113
+
+    expr    go to state 114
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 85
+
+   58 rel: expr NOT . ASSIGN expr
+
+    ASSIGN  shift, and go to state 115
+
+
+State 86
+
+   24 command: WHILE $@4 bool . $@5 DO command
+   49 bool: bool . OR frel
+   50     | bool . AND frel
+
+    AND  shift, and go to state 80
+    OR   shift, and go to state 81
+
+    $default  reduce using rule 23 ($@5)
+
+    $@5  go to state 116
+
+
+State 87
+
+   27 command: FOR varassign $@6 . bool SEMICOLON $@7 varassign DO command
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 46
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+    NOT      shift, and go to state 47
+
+    bool    go to state 117
+    frel    go to state 49
+    rel     go to state 50
+    expr    go to state 51
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 88
+
+   30 command: ID OPENPR arglist . CLOSEDPR SEMICOLON
+
+    CLOSEDPR  shift, and go to state 118
+
+
+State 89
+
+   32 arglist: args .
+   34 args: args . COMMA expr
+
+    COMMA  shift, and go to state 119
+
+    $default  reduce using rule 32 (arglist)
+
+
+State 90
+
+   33 args: expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 33 (args)
+
+
+State 91
+
+   15 varassign: ID ASSIGN expr . SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS       shift, and go to state 65
+    MINUS      shift, and go to state 66
+    SEMICOLON  shift, and go to state 120
+
+
+State 92
+
+   48 command: SIZE expr SEMICOLON .
+
+    $default  reduce using rule 48 (command)
+
+
+State 93
+
+    5 declist: declist . dec
+   29 command: START $@8 declist . commandList END
+
+    VAR        shift, and go to state 5
+    PROCEDURE  shift, and go to state 6
+
+    $default  reduce using rule 13 (commandList)
+
+    dec          go to state 7
+    commandList  go to state 121
+
+
+State 94
+
+   20 command: ifhead command ELSE . $@2 $@3 command
+
+    $default  reduce using rule 18 ($@2)
+
+    $@2  go to state 122
+
+
+State 95
+
+   47 command: $@12 CURVE expr . COMMA expr COMMA expr SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+    COMMA  shift, and go to state 123
+
+
+State 96
+
+   11 params: ID .
+   12       | ID . COMMA params
+
+    COMMA  shift, and go to state 124
+
+    $default  reduce using rule 11 (params)
+
+
+State 97
+
+    8 dec: PROCEDURE ID $@1 OPENPR paramlist . CLOSEDPR START declist commandList END
+
+    CLOSEDPR  shift, and go to state 125
+
+
+State 98
+
+   10 paramlist: params .
+
+    $default  reduce using rule 10 (paramlist)
+
+
+State 99
+
+   73 atomic: OPENPR expr CLOSEDPR .
+
+    $default  reduce using rule 73 (atomic)
+
+
+State 100
+
+   62 expr: expr PLUS prod .
+   65 prod: prod . STAR factor
+   66     | prod . SLASH factor
+
+    STAR   shift, and go to state 68
+    SLASH  shift, and go to state 69
+
+    $default  reduce using rule 62 (expr)
+
+
+State 101
+
+   63 expr: expr MINUS prod .
+   65 prod: prod . STAR factor
+   66     | prod . SLASH factor
+
+    STAR   shift, and go to state 68
+    SLASH  shift, and go to state 69
+
+    $default  reduce using rule 63 (expr)
+
+
+State 102
+
+   65 prod: prod STAR factor .
+
+    $default  reduce using rule 65 (prod)
+
+
+State 103
+
+   66 prod: prod SLASH factor .
+
+    $default  reduce using rule 66 (prod)
+
+
+State 104
+
+   45 command: TURN RIGHT expr SEMICOLON .
+
+    $default  reduce using rule 45 (command)
+
+
+State 105
+
+   44 command: TURN LEFT expr SEMICOLON .
+
+    $default  reduce using rule 44 (command)
+
+
+State 106
+
+   41 command: COLOR RGB OPENPR expr . $@9 COMMA expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 38 ($@9)
+
+    $@9  go to state 126
+
+
+State 107
+
+   60 rel: OPENPR rel CLOSEDPR .
+
+    $default  reduce using rule 60 (rel)
+
+
+State 108
+
+   50 bool: bool AND frel .
+
+    $default  reduce using rule 50 (bool)
+
+
+State 109
+
+   49 bool: bool OR frel .
+
+    $default  reduce using rule 49 (bool)
+
+
+State 110
+
+   59 rel: expr ASSIGN ASSIGN . expr
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 127
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 111
+
+   56 rel: expr LESS ASSIGN . expr
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 128
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 112
+
+   54 rel: expr LESS expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 54 (rel)
+
+
+State 113
+
+   57 rel: expr GREATER ASSIGN . expr
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 129
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 114
+
+   55 rel: expr GREATER expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 55 (rel)
+
+
+State 115
+
+   58 rel: expr NOT ASSIGN . expr
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 130
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 116
+
+   24 command: WHILE $@4 bool $@5 . DO command
+
+    DO  shift, and go to state 131
+
+
+State 117
+
+   27 command: FOR varassign $@6 bool . SEMICOLON $@7 varassign DO command
+   49 bool: bool . OR frel
+   50     | bool . AND frel
+
+    AND        shift, and go to state 80
+    OR         shift, and go to state 81
+    SEMICOLON  shift, and go to state 132
+
+
+State 118
+
+   30 command: ID OPENPR arglist CLOSEDPR . SEMICOLON
+
+    SEMICOLON  shift, and go to state 133
+
+
+State 119
+
+   34 args: args COMMA . expr
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 134
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 120
+
+   15 varassign: ID ASSIGN expr SEMICOLON .
+
+    $default  reduce using rule 15 (varassign)
+
+
+State 121
+
+   14 commandList: commandList . command
+   29 command: START $@8 declist commandList . END
+
+    FORWARD  shift, and go to state 11
+    TURN     shift, and go to state 12
+    COLOR    shift, and go to state 13
+    IF       shift, and go to state 14
+    WHILE    shift, and go to state 15
+    FOR      shift, and go to state 16
+    ID       shift, and go to state 17
+    SIZE     shift, and go to state 18
+    START    shift, and go to state 19
+    END      shift, and go to state 135
+
+    $default  reduce using rule 46 ($@12)
+
+    varassign  go to state 21
+    command    go to state 22
+    ifhead     go to state 23
+    $@12       go to state 24
+
+
+State 122
+
+   20 command: ifhead command ELSE $@2 . $@3 command
+
+    $default  reduce using rule 19 ($@3)
+
+    $@3  go to state 136
+
+
+State 123
+
+   47 command: $@12 CURVE expr COMMA . expr COMMA expr SEMICOLON
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 137
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 124
+
+   12 params: ID COMMA . params
+
+    ID  shift, and go to state 96
+
+    params  go to state 138
+
+
+State 125
+
+    8 dec: PROCEDURE ID $@1 OPENPR paramlist CLOSEDPR . START declist commandList END
+
+    START  shift, and go to state 139
+
+
+State 126
+
+   41 command: COLOR RGB OPENPR expr $@9 . COMMA expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
+
+    COMMA  shift, and go to state 140
+
+
+State 127
+
+   59 rel: expr ASSIGN ASSIGN expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 59 (rel)
+
+
+State 128
+
+   56 rel: expr LESS ASSIGN expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 56 (rel)
+
+
+State 129
+
+   57 rel: expr GREATER ASSIGN expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 57 (rel)
+
+
+State 130
+
+   58 rel: expr NOT ASSIGN expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 58 (rel)
+
+
 State 131
 
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr $@9 COMMA . expr $@10 CLOSEDPR SEMICOLON
+   24 command: WHILE $@4 bool $@5 DO . command
 
-    PLUS     shift, and go to state 24
-    MINUS    shift, and go to state 25
-    OPENPR   shift, and go to state 26
-    INTEGER  shift, and go to state 27
-    DOUBLE   shift, and go to state 28
-    ID       shift, and go to state 29
+    FORWARD  shift, and go to state 11
+    TURN     shift, and go to state 12
+    COLOR    shift, and go to state 13
+    IF       shift, and go to state 14
+    WHILE    shift, and go to state 15
+    FOR      shift, and go to state 16
+    ID       shift, and go to state 17
+    SIZE     shift, and go to state 18
+    START    shift, and go to state 19
 
-    expr    go to state 133
-    prod    go to state 32
-    factor  go to state 33
-    atomic  go to state 34
+    $default  reduce using rule 46 ($@12)
+
+    varassign  go to state 21
+    command    go to state 141
+    ifhead     go to state 23
+    $@12       go to state 24
 
 
 State 132
 
-   21 command: FOR varassign $@5 bool SEMICOLON $@6 varassign DO command .
+   27 command: FOR varassign $@6 bool SEMICOLON . $@7 varassign DO command
 
-    $default  reduce using rule 21 (command)
+    $default  reduce using rule 26 ($@7)
+
+    $@7  go to state 142
 
 
 State 133
 
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr $@9 COMMA expr . $@10 CLOSEDPR SEMICOLON
-   51 expr: expr . PLUS prod
-   52     | expr . MINUS prod
+   30 command: ID OPENPR arglist CLOSEDPR SEMICOLON .
 
-    PLUS   shift, and go to state 59
-    MINUS  shift, and go to state 60
-
-    $default  reduce using rule 29 ($@10)
-
-    $@10  go to state 134
+    $default  reduce using rule 30 (command)
 
 
 State 134
 
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr $@9 COMMA expr $@10 . CLOSEDPR SEMICOLON
+   34 args: args COMMA expr .
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
 
-    CLOSEDPR  shift, and go to state 135
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 34 (args)
 
 
 State 135
 
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr $@9 COMMA expr $@10 CLOSEDPR . SEMICOLON
+   29 command: START $@8 declist commandList END .
 
-    SEMICOLON  shift, and go to state 136
+    $default  reduce using rule 29 (command)
 
 
 State 136
 
-   30 command: COLOR RGB OPENPR expr $@8 COMMA expr $@9 COMMA expr $@10 CLOSEDPR SEMICOLON .
+   20 command: ifhead command ELSE $@2 $@3 . command
 
-    $default  reduce using rule 30 (command)
+    FORWARD  shift, and go to state 11
+    TURN     shift, and go to state 12
+    COLOR    shift, and go to state 13
+    IF       shift, and go to state 14
+    WHILE    shift, and go to state 15
+    FOR      shift, and go to state 16
+    ID       shift, and go to state 17
+    SIZE     shift, and go to state 18
+    START    shift, and go to state 19
+
+    $default  reduce using rule 46 ($@12)
+
+    varassign  go to state 21
+    command    go to state 143
+    ifhead     go to state 23
+    $@12       go to state 24
+
+
+State 137
+
+   47 command: $@12 CURVE expr COMMA expr . COMMA expr SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+    COMMA  shift, and go to state 144
+
+
+State 138
+
+   12 params: ID COMMA params .
+
+    $default  reduce using rule 12 (params)
+
+
+State 139
+
+    8 dec: PROCEDURE ID $@1 OPENPR paramlist CLOSEDPR START . declist commandList END
+
+    $default  reduce using rule 4 (declist)
+
+    declist  go to state 145
+
+
+State 140
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA . expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 146
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 141
+
+   24 command: WHILE $@4 bool $@5 DO command .
+
+    $default  reduce using rule 24 (command)
+
+
+State 142
+
+   27 command: FOR varassign $@6 bool SEMICOLON $@7 . varassign DO command
+
+    ID  shift, and go to state 53
+
+    varassign  go to state 147
+
+
+State 143
+
+   20 command: ifhead command ELSE $@2 $@3 command .
+
+    $default  reduce using rule 20 (command)
+
+
+State 144
+
+   47 command: $@12 CURVE expr COMMA expr COMMA . expr SEMICOLON
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 148
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 145
+
+    5 declist: declist . dec
+    8 dec: PROCEDURE ID $@1 OPENPR paramlist CLOSEDPR START declist . commandList END
+
+    VAR        shift, and go to state 5
+    PROCEDURE  shift, and go to state 6
+
+    $default  reduce using rule 13 (commandList)
+
+    dec          go to state 7
+    commandList  go to state 149
+
+
+State 146
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr . $@10 COMMA expr $@11 CLOSEDPR SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 39 ($@10)
+
+    $@10  go to state 150
+
+
+State 147
+
+   27 command: FOR varassign $@6 bool SEMICOLON $@7 varassign . DO command
+
+    DO  shift, and go to state 151
+
+
+State 148
+
+   47 command: $@12 CURVE expr COMMA expr COMMA expr . SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS       shift, and go to state 65
+    MINUS      shift, and go to state 66
+    SEMICOLON  shift, and go to state 152
+
+
+State 149
+
+    8 dec: PROCEDURE ID $@1 OPENPR paramlist CLOSEDPR START declist commandList . END
+   14 commandList: commandList . command
+
+    FORWARD  shift, and go to state 11
+    TURN     shift, and go to state 12
+    COLOR    shift, and go to state 13
+    IF       shift, and go to state 14
+    WHILE    shift, and go to state 15
+    FOR      shift, and go to state 16
+    ID       shift, and go to state 17
+    SIZE     shift, and go to state 18
+    START    shift, and go to state 19
+    END      shift, and go to state 153
+
+    $default  reduce using rule 46 ($@12)
+
+    varassign  go to state 21
+    command    go to state 22
+    ifhead     go to state 23
+    $@12       go to state 24
+
+
+State 150
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr $@10 . COMMA expr $@11 CLOSEDPR SEMICOLON
+
+    COMMA  shift, and go to state 154
+
+
+State 151
+
+   27 command: FOR varassign $@6 bool SEMICOLON $@7 varassign DO . command
+
+    FORWARD  shift, and go to state 11
+    TURN     shift, and go to state 12
+    COLOR    shift, and go to state 13
+    IF       shift, and go to state 14
+    WHILE    shift, and go to state 15
+    FOR      shift, and go to state 16
+    ID       shift, and go to state 17
+    SIZE     shift, and go to state 18
+    START    shift, and go to state 19
+
+    $default  reduce using rule 46 ($@12)
+
+    varassign  go to state 21
+    command    go to state 155
+    ifhead     go to state 23
+    $@12       go to state 24
+
+
+State 152
+
+   47 command: $@12 CURVE expr COMMA expr COMMA expr SEMICOLON .
+
+    $default  reduce using rule 47 (command)
+
+
+State 153
+
+    8 dec: PROCEDURE ID $@1 OPENPR paramlist CLOSEDPR START declist commandList END .
+
+    $default  reduce using rule 8 (dec)
+
+
+State 154
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr $@10 COMMA . expr $@11 CLOSEDPR SEMICOLON
+
+    PLUS     shift, and go to state 27
+    MINUS    shift, and go to state 28
+    OPENPR   shift, and go to state 29
+    INTEGER  shift, and go to state 30
+    DOUBLE   shift, and go to state 31
+    ID       shift, and go to state 32
+
+    expr    go to state 156
+    prod    go to state 35
+    factor  go to state 36
+    atomic  go to state 37
+
+
+State 155
+
+   27 command: FOR varassign $@6 bool SEMICOLON $@7 varassign DO command .
+
+    $default  reduce using rule 27 (command)
+
+
+State 156
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr $@10 COMMA expr . $@11 CLOSEDPR SEMICOLON
+   62 expr: expr . PLUS prod
+   63     | expr . MINUS prod
+
+    PLUS   shift, and go to state 65
+    MINUS  shift, and go to state 66
+
+    $default  reduce using rule 40 ($@11)
+
+    $@11  go to state 157
+
+
+State 157
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr $@10 COMMA expr $@11 . CLOSEDPR SEMICOLON
+
+    CLOSEDPR  shift, and go to state 158
+
+
+State 158
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr $@10 COMMA expr $@11 CLOSEDPR . SEMICOLON
+
+    SEMICOLON  shift, and go to state 159
+
+
+State 159
+
+   41 command: COLOR RGB OPENPR expr $@9 COMMA expr $@10 COMMA expr $@11 CLOSEDPR SEMICOLON .
+
+    $default  reduce using rule 41 (command)

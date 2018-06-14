@@ -15,7 +15,7 @@ int yyerror(char *msg);
 
 %token	CURVE SIZE
 
-%token	COMMA SEMICOLON ASSIGN
+%token	COMMA SEMICOLON ASSIGN PROCEDURE
 
 %token	LESS GREATER NOT
 
@@ -35,11 +35,20 @@ declist: declist dec;
 // fprintf(stderr,"LEVEL: %d, %d", $2->level, level);
 dec: VAR ID SEMICOLON {if($2->defined == 1 && $2->level == level) yyerror("Multiple variable declaration!"); else {$2->defined = 1; printf("/tlt%s 0 def ", $2->name); insert($2->name)->defined = 1;}};
 
+dec: PROCEDURE ID {scope_open(); printf("/tpt%s { 4 dict begin \n", $2->name);} OPENPR paramlist CLOSEDPR
+	START declist commandList END {scope_close(); printf("end } def\n");};
+
+paramlist: ;
+paramlist: params;
+
+params: ID {$1->defined = 1; printf("/tlt%s exch def\n", $1->name);};
+params: ID COMMA params {$1->defined = 1; printf("/tlt%s exch def\n", $1->name);};
+
 commandList: ;
 commandList: commandList command;
 
 
-varassign: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch store\n", $1->name);};
+varassign: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch store\n", $1->name); else yyerror("Variable undefined");};
 
 command: varassign;
 
@@ -52,6 +61,13 @@ command: WHILE {printf("{\n");} bool {printf("{\n");} DO command {printf("}{exit
 command: FOR varassign {printf("{\n");} bool SEMICOLON {printf("{\n");} varassign DO command {printf("}{exit}ifelse}loop\n");};
 
 command: START {scope_open(); printf("4 dict begin ");} declist commandList END { scope_close(); printf("end ");};
+
+command: ID OPENPR arglist CLOSEDPR SEMICOLON {printf("tpt%s\n",$1->name);};
+
+arglist: ;
+arglist: args;
+args: expr;
+args: args COMMA expr;
 
 command: FORWARD SEMICOLON {printf("newpath 0 0 moveto 0 100 lineto currentpoint translate stroke\n");};
 command: FORWARD expr SEMICOLON {printf("newpath 0 0 moveto 0 exch lineto currentpoint translate stroke\n");};
@@ -98,7 +114,7 @@ factor: atomic;
 factor: PLUS atomic;
 factor: MINUS atomic {printf("neg ");};
 
-atomic: ID {if($1->defined) printf("tlt%s ", $1->name);};
+atomic: ID {if($1->defined) printf("tlt%s ", $1->name); else yyerror("Variable undefined");};
 atomic: INTEGER {printf("%d ", $1);};
 atomic: DOUBLE {printf("%f ", $1);};
 atomic: OPENPR expr CLOSEDPR;

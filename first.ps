@@ -1,13 +1,17 @@
 %!PS
 
-/tltx 0 def /tlty 0 def 0 /tltx exch store
-7 /tlty exch store
+/tptp { 4 dict begin 
+/tltc exch def
+/tltx exch def
+/tlta exch def
+tlta newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+tltx newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+tltc newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+end } def
+/tlte 0 def 1 /tlte exch store
 {
-tltx 1 lt {
-4 dict begin /tlty 0 def tltx 1 add /tltx exch store
-2 /tlty exch store
-tlty 10 mul newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-45 -1 mul rotate
+tlte 1000 lt {
+tlte 1 add /tlte exch store
+4 dict begin 10 20 3 10 mul tlte mul tptp
+tlte 20 mul -1 mul rotate
 end }{exit}ifelse}loop
-255 255 div 0 255 div 0 255 div setrgbcolor
-tlty 10 mul newpath 0 0 moveto 0 exch lineto currentpoint translate stroke

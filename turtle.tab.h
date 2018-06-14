@@ -79,11 +79,12 @@ extern int yydebug;
     COMMA = 289,
     SEMICOLON = 290,
     ASSIGN = 291,
-    LESS = 292,
-    GREATER = 293,
-    NOT = 294,
-    START = 295,
-    END = 296
+    PROCEDURE = 292,
+    LESS = 293,
+    GREATER = 294,
+    NOT = 295,
+    START = 296,
+    END = 297
   };
 #endif
 
@@ -95,7 +96,7 @@ union YYSTYPE
 #line 24 "turtle.y" /* yacc.c:1909  */
 int i; node *n; double d;
 
-#line 99 "turtle.tab.h" /* yacc.c:1909  */
+#line 100 "turtle.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

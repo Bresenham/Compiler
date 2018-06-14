@@ -1,15 +1,15 @@
-Variable x;
-Variable y;
-x = 0;
-y = 7;
-While x < 1 Do
+Procedure p(a,x,c)
 Begin
-  Variable y;
-  x = x + 1;
-  y = 2;
-  Forward y*10;
-  Turn Right 45;
+  Forward a;
+  Forward x;
+  Forward c; 
 End
-Color rgb(255,0,0);
-Forward y*10;
+
+Variable e;
+For e = 1; e < 1000; e = e+1; Do
+Begin
+  p(10,20,3*10*e);
+  Turn Right e*20;
+End
+
 

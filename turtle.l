@@ -4,6 +4,7 @@
 %}
 
 %%
+Procedure		return PROCEDURE;
 Forward			return FORWARD;
 Turn[ \t]		return TURN;
 Right			return RIGHT;
