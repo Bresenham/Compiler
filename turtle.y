@@ -19,7 +19,7 @@ int yyerror(char *msg);
 
 %token	LESS GREATER NOT
 
-%token	START END
+%token	START END MOD
 
 %union {int i; node *n; double d;}
 
@@ -103,6 +103,7 @@ rel: expr ASSIGN ASSIGN expr {printf("eq ");};
 rel: OPENPR rel CLOSEDPR;
 
 expr: prod;
+expr: expr MOD prod {printf("mod ");};
 expr: expr PLUS prod {printf("add ");};
 expr: expr MINUS prod {printf("sub ");};
 

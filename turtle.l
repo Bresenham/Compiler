@@ -28,7 +28,7 @@ Else			return ELSE;
 For			return FOR;
 Begin			return START;
 End			return END;
-
+mod			return MOD;
 [a-z]+			{
 				yylval.n = lookup(yytext);
 				if(yylval.n == NULL) yylval.n = insert(yytext);

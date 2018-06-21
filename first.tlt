@@ -1,15 +1,53 @@
-Procedure p(a,x,c)
+Variable loop;
+Variable doop;
+Procedure drawtile(r,g,b)
 Begin
-  Forward a;
-  Forward x;
-  Forward c; 
+  Variable z;
+  Color rgb(r,g,b);
+  For z=0;z < 25;z = z + 1; Do
+  Begin
+    Forward 50;
+    Turn Left 90;
+    Forward 1;
+    Turn Left 90;
+    Forward 50;
+    Turn Right 90;
+    Forward 1;
+    Turn Right 90;
+    
+  End
+End
+Procedure drawtiles(r,g,b)
+Begin
+  For loop=4;loop > 0; loop = loop - 1; Do
+  Begin
+    drawtile(r,g,b);
+    Color rgb(255,255,255);
+    Turn Left 90;
+    Forward 50;
+    Turn Right 90;
+  End	
 End
 
-Variable e;
-For e = 1; e < 1000; e = e+1; Do
+Turn Right 180;
+For doop=8;doop >0; doop = doop - 1; Do
 Begin
-  p(10,20,3*10*e);
-  Turn Right e*20;
+  If doop mod 2 == 0 Then
+  Begin
+        Turn Left 90;
+	drawtiles(255,0,0);
+	Color rgb(255,255,255);
+	Forward 50;
+	Turn Right 90;
+	Forward 350;
+  End
+  Else
+  Begin
+	Turn Left 90;
+	drawtiles(0,255,0);
+	Color rgb(255,255,255);
+	Forward 50;
+	Turn Right 90;
+	Forward 450;
+  End
 End
-
-
