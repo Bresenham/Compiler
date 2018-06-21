@@ -1,6 +1,6 @@
 %!PS
 
-/tltdoop 0 def /tptdrawtile { 4 dict begin 
+/tltdoop 0 def /tltloop 0 def /tptdrawtile { 4 dict begin 
 /tltb exch def
 /tltg exch def
 /tltr exch def
@@ -34,6 +34,11 @@ tltloop 1 sub /tltloop exch store
 90 -1 mul rotate
 end }{exit}ifelse}loop
 end } def
+255 255 div 255 255 div 255 255 div setrgbcolor
+150 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+90 -1 mul rotate
+100 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
+90 rotate
 180 -1 mul rotate
 7 /tltdoop exch store
 {
@@ -55,4 +60,13 @@ end }
 90 -1 mul rotate
 450 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
 end } ifelse
+end }{exit}ifelse}loop
+180 255 div 75 255 div 25 255 div setrgbcolor
+12 setlinewidth
+0 /tltloop exch store
+{
+tltloop 4 lt {
+tltloop 1 add /tltloop exch store
+4 dict begin 90 -1 mul rotate
+400 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
 end }{exit}ifelse}loop
