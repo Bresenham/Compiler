@@ -83,9 +83,10 @@ extern int yydebug;
     LESS = 293,
     GREATER = 294,
     NOT = 295,
-    START = 296,
-    END = 297,
-    MOD = 298
+    STEP = 296,
+    START = 297,
+    END = 298,
+    MOD = 299
   };
 #endif
 
@@ -97,7 +98,7 @@ union YYSTYPE
 #line 24 "turtle.y" /* yacc.c:1909  */
 int i; node *n; double d;
 
-#line 101 "turtle.tab.h" /* yacc.c:1909  */
+#line 102 "turtle.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -17,7 +17,7 @@ int yyerror(char *msg);
 
 %token	COMMA SEMICOLON ASSIGN PROCEDURE
 
-%token	LESS GREATER NOT
+%token	LESS GREATER NOT STEP
 
 %token	START END MOD
 
@@ -47,8 +47,9 @@ params: ID COMMA params {$1->defined = 1; printf("/tlt%s exch def\n", $1->name);
 commandList: ;
 commandList: commandList command;
 
+forvarassign: ID ASSIGN expr {if($1->defined) printf("/tlt%s exch store\n", $1->name); else yyerror("Variable undefined");};
 
-varassign: ID ASSIGN expr SEMICOLON {if($1->defined) printf("/tlt%s exch store\n", $1->name); else yyerror("Variable undefined");};
+varassign: forvarassign SEMICOLON ;
 
 command: varassign;
 
@@ -57,6 +58,8 @@ command: ifhead command ELSE {printf("}\n");} {printf("{\n");} command {printf("
 command: ifhead command {printf("} if\n");};
 
 command: WHILE {printf("{\n");} bool {printf("{\n");} DO command {printf("}{exit}ifelse}loop\n");};
+
+command: FOR forvarassign {printf("{\n");} WHILE bool {printf("{\n");} STEP forvarassign DO command {printf("}{exit}ifelse}loop\n");};
 
 command: FOR varassign {printf("{\n");} bool SEMICOLON {printf("{\n");} varassign DO command {printf("}{exit}ifelse}loop\n");};
 

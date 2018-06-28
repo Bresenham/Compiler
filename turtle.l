@@ -16,6 +16,8 @@ Green			return GREEN;
 Blue			return BLUE;
 Black			return BLACK;
 
+Step			return STEP;
+
 Variable		return VAR;
 If			return IF;
 While			return WHILE;

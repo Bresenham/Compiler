@@ -37,7 +37,7 @@ Forward 100;
 Turn Left 90;
 
 Turn Right 180;
-For doop=7;doop >=0; doop = doop - 1; Do
+For doop=7 While doop >=0 Step doop = doop - 1 Do
 Begin
   If doop mod 2 == 0 Then
   Begin
