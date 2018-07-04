@@ -1,72 +1,14 @@
 %!PS
 
-/tltdoop 0 def /tltloop 0 def /tptdrawtile { 4 dict begin 
-/tltb exch def
-/tltg exch def
-/tltr exch def
-/tltz 0 def tltr 255 div tltg 255 div tltb 255 div setrgbcolor
-0 /tltz exch store
+/tltdoop 0 def 1 /tltdoop exch store
+45 -1 mul rotate
+/tlt1 0 def
 {
-tltz 25 lt {
-tltz 1 add /tltz exch store
+{
 4 dict begin 50 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 rotate
-1 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 rotate
-50 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 -1 mul rotate
-1 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 -1 mul rotate
-end }{exit}ifelse}loop
-end } def
-/tptdrawtiles { 4 dict begin 
-/tltb exch def
-/tltg exch def
-/tltr exch def
-/tltloop 0 def 4 /tltloop exch store
-{
-tltloop 0 gt {
-tltloop 1 sub /tltloop exch store
-4 dict begin tltr tltg tltb tptdrawtile
-255 255 div 255 255 div 255 255 div setrgbcolor
-90 rotate
-50 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 -1 mul rotate
-end }{exit}ifelse}loop
-end } def
-255 255 div 255 255 div 255 255 div setrgbcolor
-150 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 -1 mul rotate
-100 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 rotate
-180 -1 mul rotate
-7 /tltdoop exch store
-{
-tltdoop 0 ge {
 tltdoop 1 sub /tltdoop exch store
-4 dict begin tltdoop 2 mod 0 eq {
-4 dict begin 90 rotate
-255 0 0 tptdrawtiles
-255 255 div 255 255 div 255 255 div setrgbcolor
-50 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 -1 mul rotate
-350 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-end }
-{
-4 dict begin 90 rotate
-0 255 0 tptdrawtiles
-255 255 div 255 255 div 255 255 div setrgbcolor
-50 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-90 -1 mul rotate
-450 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-end } ifelse
-end }{exit}ifelse}loop
-180 255 div 75 255 div 25 255 div setrgbcolor
-12 setlinewidth
-0 /tltloop exch store
-{
-tltloop 4 lt {
-tltloop 1 add /tltloop exch store
-4 dict begin 90 -1 mul rotate
-400 newpath 0 0 moveto 0 exch lineto currentpoint translate stroke
-end }{exit}ifelse}loop
+20 -1 mul rotate
+end tlt1 1 add /tlt1 exch store}
+tltdoop 0 gt tlt1 0 eq or
+exch {exit} ifelse
+} loop

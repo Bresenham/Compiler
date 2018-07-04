@@ -59,6 +59,8 @@ command: ifhead command {printf("} if\n");};
 
 command: WHILE {printf("{\n");} bool {printf("{\n");} DO command {printf("}{exit}ifelse}loop\n");};
 
+command: DO {printf("/tlt1 0 def\n{\n{\n");} command {printf("tlt1 1 add /tlt1 exch store}\n");} WHILE bool {printf("tlt1 0 eq or\nexch {exit} ifelse\n} loop\n");} SEMICOLON;
+
 command: FOR forvarassign {printf("{\n");} WHILE bool {printf("{\n");} STEP forvarassign DO command {printf("}{exit}ifelse}loop\n");};
 
 command: FOR varassign {printf("{\n");} bool SEMICOLON {printf("{\n");} varassign DO command {printf("}{exit}ifelse}loop\n");};

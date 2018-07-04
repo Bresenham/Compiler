@@ -1,67 +1,10 @@
 Variable doop;
-Variable loop;
-Procedure drawtile(r,g,b)
+doop = 1;
+Turn Right 45;
+Do
 Begin
-  Variable z;
-  Color rgb(r,g,b);
-  For z=0;z < 25;z = z + 1; Do
-  Begin
-    Forward 50;
-    Turn Left 90;
-    Forward 1;
-    Turn Left 90;
-    Forward 50;
-    Turn Right 90;
-    Forward 1;
-    Turn Right 90;
-    
-  End
-End
-Procedure drawtiles(r,g,b)
-Begin
-  Variable loop;
-  For loop=4;loop > 0; loop = loop - 1; Do
-  Begin
-    drawtile(r,g,b);
-    Color rgb(255,255,255);
-    Turn Left 90;
-    Forward 50;
-    Turn Right 90;
-  End	
-End
-//In die Mitte verschieben
-Color rgb(255,255,255);
-Forward 150; 
-Turn Right 90;
-Forward 100;
-Turn Left 90;
-
-Turn Right 180;
-For doop=7 While doop >=0 Step doop = doop - 1 Do
-Begin
-  If doop mod 2 == 0 Then
-  Begin
-    Turn Left 90;
-	drawtiles(255,0,0);
-	Color rgb(255,255,255);
 	Forward 50;
-	Turn Right 90;
-	Forward 350;
-  End
-  Else
-  Begin
-	Turn Left 90;
-	drawtiles(0,255,0);
-	Color rgb(255,255,255);
-	Forward 50;
-	Turn Right 90;
-	Forward 450;
-  End
+	doop = doop -1;
+	Turn Right 20;
 End
-Color rgb(180,75,25);
-Size 12;
-For loop=0;loop<4;loop = loop + 1; Do
-Begin
-  Turn Right 90;
-  Forward 400;
-End
+While doop > 0;
